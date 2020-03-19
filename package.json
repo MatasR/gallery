@@ -18,7 +18,5 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0"
     },
-    "dependencies": {
-        "masonry-layout": "^4.2.2"
-    }
+    "dependencies": {}
 }
