@@ -6,24 +6,17 @@
 
   </head>
   <body>
-
-    <header class="row">
+    <div class="container">
 
       @include('includes.header')
 
-    </header>
+    </div>
 
-    <div id="main" class="row">
+    <div class="container">
 
       @yield('content')
 
     </div>
-
-    <footer class="row">
-
-      @include('includes.footer')
-
-    </footer>
 
     @include('includes.scripts')
 

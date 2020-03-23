@@ -1,1 +1,62 @@
-//
+//Make changes to bootstrap
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,400,600');
+$font-family-base: 'Nunito';
+
+//Import bootstrap to save changes
+@import "node_modules/bootstrap/scss/bootstrap";
+
+//Import AOS js
+@import "node_modules/aos/src/sass/aos";
+
+//Required styles for SwipeJS
+.swipe {
+  overflow: hidden;
+  visibility: hidden;
+  position: relative;
+}
+.swipe-wrap {
+  overflow: hidden;
+  position: relative;
+}
+.swipe-wrap > div {
+  float: left;
+  width: 100%;
+  position: relative;
+  padding-bottom: 1px;
+}
+
+//Magic line
+#magic-line{
+  width: 100px;
+  height: 2px;
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  background: #eee;
+}
+
+body {
+  .nav {
+    .nav-item {
+      .nav-link {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: .1rem;
+        text-transform: uppercase;
+        padding: 0.5rem 0.9rem;
+        &.active {
+
+        }
+      }
+    }
+  }
+}
+
+.card-columns {
+  column-gap: 0.75rem;
+  .card {
+    .card-title {
+      background: rgba(0, 0, 0, 0.3);
+    }
+  }
+}
