@@ -6,6 +6,12 @@ window.AOS = require('aos');
 
 window.Swipe = require('swipejs');
 
+var Isotope = require('isotope-layout');
+
+// For some reason isotope does not work without jquery-bridget
+var jQueryBridget = require('jquery-bridget');
+jQueryBridget('isotope', Isotope, $);
+
 require('./magicLine.js');
 
 //window._ = require('lodash');

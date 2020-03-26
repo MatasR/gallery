@@ -6,17 +6,10 @@
 
   </head>
   <body>
-    <div class="container">
 
-      @include('includes.header')
+    @include('includes.header')
 
-    </div>
-
-    <div class="container">
-
-      @yield('content')
-
-    </div>
+    @yield('content')
 
     @include('includes.scripts')
 

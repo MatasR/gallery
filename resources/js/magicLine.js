@@ -8,7 +8,7 @@
     active = mainNav.find('.active');
 
     // Create the magic line
-    theLine = $('<li></li>').attr('id', 'magic-line');
+    theLine = $('<li data-aos="flip-left" data-aos-duration="1000"></li>').attr('id', 'magic-line');
     theLine.css('left', active.position().left).css('width', active.css('width'));
 
     // Append the magic line to main navigation
@@ -33,11 +33,13 @@
   // ANIMATE function
   function animateMenu(dest = mainNav.find('.active')){
 
-    leftPos = dest.position().left + 'px';
+    leftPos = dest.position().left;
+    // Fix for nav-scroll-x plugin
+    scrollLeft = mainNav.scrollLeft();
     newWidth = dest.css('width');
 
     theLine.stop().animate({
-        left: leftPos,
+        left: leftPos + scrollLeft + 'px',
         width: newWidth
     }, 300, "swing");
   }
