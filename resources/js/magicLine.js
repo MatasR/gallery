@@ -1,26 +1,29 @@
 (function() {
 
+  var nav, theLine;
+
   // Define our constructor
-  this.MagicLine = function() {
+  MagicLine = function(elem) {
 
-    // Find required elements
-    mainNav = $('#magicLineNavbar');
-    active = mainNav.find('.active');
+    // Define as global var for animateMenu menu access later
+    nav = elem;
 
-    // Create the magic line
-    theLine = $('<li data-aos="flip-left" data-aos-duration="1000"></li>').attr('id', 'magic-line');
+    var active = nav.find('.active').length ? nav.find('.active') : nav.find('.nav-item').first();
+
+    // Create the magic line (global var for latter animateMenu access)
+    theLine = $('<div ddata-aos="flip-left" data-aos-duration="1000"></div>').attr('class', 'magic-line');
     theLine.css('left', active.position().left).css('width', active.css('width'));
 
     // Append the magic line to main navigation
-    mainNav.append(theLine);
+    nav.append(theLine);
 
     // EVENTS
     // Mouseenter/Mouseleave -> move magicLine
-    $(mainNav).on('mouseenter', 'li', function(e) {
+    $(nav).on('mouseenter', 'li', function(e) {
         e.preventDefault();
         animateMenu($(this));
     });
-    $(mainNav).on('mouseleave', 'li', function(e) {
+    $(nav).on('mouseleave', 'li', function(e) {
         e.preventDefault();
         animateMenu();
     });
@@ -31,17 +34,18 @@
   MagicLine.prototype.refresh = animateMenu;
 
   // ANIMATE function
-  function animateMenu(dest = mainNav.find('.active')){
+  function animateMenu(dest = nav.find('.active').length ? nav.find('.active') : nav.first()){
 
-    leftPos = dest.position().left;
+    var leftPos = dest.position().left;
     // Fix for nav-scroll-x plugin
-    scrollLeft = mainNav.scrollLeft();
-    newWidth = dest.css('width');
+    var scrollLeft = nav.scrollLeft();
+    var newWidth = dest.css('width');
 
     theLine.stop().animate({
         left: leftPos + scrollLeft + 'px',
         width: newWidth
     }, 300, "swing");
   }
+
 
 }());

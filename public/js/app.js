@@ -22348,23 +22348,24 @@ __webpack_require__(/*! ./magicLine.js */ "./resources/js/magicLine.js"); //wind
 /***/ (function(module, exports) {
 
 (function () {
-  // Define our constructor
-  this.MagicLine = function () {
-    // Find required elements
-    mainNav = $('#magicLineNavbar');
-    active = mainNav.find('.active'); // Create the magic line
+  var nav, theLine; // Define our constructor
 
-    theLine = $('<li data-aos="flip-left" data-aos-duration="1000"></li>').attr('id', 'magic-line');
+  MagicLine = function MagicLine(elem) {
+    // Define as global var for animateMenu menu access later
+    nav = elem;
+    var active = nav.find('.active').length ? nav.find('.active') : nav.find('.nav-item').first(); // Create the magic line (global var for latter animateMenu access)
+
+    theLine = $('<div ddata-aos="flip-left" data-aos-duration="1000"></div>').attr('class', 'magic-line');
     theLine.css('left', active.position().left).css('width', active.css('width')); // Append the magic line to main navigation
 
-    mainNav.append(theLine); // EVENTS
+    nav.append(theLine); // EVENTS
     // Mouseenter/Mouseleave -> move magicLine
 
-    $(mainNav).on('mouseenter', 'li', function (e) {
+    $(nav).on('mouseenter', 'li', function (e) {
       e.preventDefault();
       animateMenu($(this));
     });
-    $(mainNav).on('mouseleave', 'li', function (e) {
+    $(nav).on('mouseleave', 'li', function (e) {
       e.preventDefault();
       animateMenu();
     });
@@ -22374,11 +22375,11 @@ __webpack_require__(/*! ./magicLine.js */ "./resources/js/magicLine.js"); //wind
   MagicLine.prototype.refresh = animateMenu; // ANIMATE function
 
   function animateMenu() {
-    var dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : mainNav.find('.active');
-    leftPos = dest.position().left; // Fix for nav-scroll-x plugin
+    var dest = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : nav.find('.active').length ? nav.find('.active') : nav.first();
+    var leftPos = dest.position().left; // Fix for nav-scroll-x plugin
 
-    scrollLeft = mainNav.scrollLeft();
-    newWidth = dest.css('width');
+    var scrollLeft = nav.scrollLeft();
+    var newWidth = dest.css('width');
     theLine.stop().animate({
       left: leftPos + scrollLeft + 'px',
       width: newWidth

@@ -79,7 +79,7 @@ $enable-responsive-font-sizes: true;
 }
 
 //Magic line
-#magic-line{
+.magic-line{
   width: 100px;
   height: 2px;
   position: absolute;
@@ -107,6 +107,23 @@ $enable-responsive-font-sizes: true;
 .nav.submenu {
   .submenu-block {
     display: none;
+    .nav-item {
+      position: relative;
+      &:after {
+        content: "";
+        width: 0;
+        height: 2px;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        background: #eee;
+        transition: all 300ms ease-in-out;
+      }
+      &.active:after {
+        left: 0;
+        width: 100%;
+      }
+    }
   }
 }
 

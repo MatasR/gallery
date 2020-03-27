@@ -4,11 +4,11 @@
 <div class="container p-0">
 
   <!-- Main category navigation -->
-  <ul class="nav mainmenu justify-content-center position-relative nav-x-scroll mx-3 d-block d-xl-flex" id="magicLineNavbar">
+  <ul class="nav mainmenu position-relative nav-x-scroll mx-3">
     @foreach(App\Category::get()->where('parent_id', '') as $category)
       @if($category->childs->count())
-        <li class="nav-item dropdown">
-          <a class="nav-link text-secondary dropdown-toggle {{ ($category->slug == $initCategory->slug ? 'active' : '') }}" href="#" data-swipe="{{ $category->slug }}">
+        <li class="nav-item dropdown {{ ($category->slug == $initCategory->slug ? 'active' : '') }}">
+          <a class="nav-link text-secondary dropdown-toggle" href="#" data-swipe="{{ $category->slug }}">
             {{ $category->title }}
           </a>
           <!--
@@ -30,7 +30,7 @@
   <ul class="nav submenu nav-x-scroll mx-3">
     @foreach(App\Category::get()->where('parent_id', '') as $category)
       @if($category->childs->count())
-        <div class="submenu-block" data-dropdown="{{ $category->slug }}">
+        <div class="submenu-block position-relative" data-dropdown="{{ $category->slug }}">
           @foreach($category->childs as $child)
             <li class="nav-item d-inline-block" data-subcat="{{ $child->slug }}">
               <a class="nav-link text-secondary" href="#">
@@ -98,11 +98,11 @@
           }, 300);
 
           // Slide magicLine to new position
-          $('.nav .nav-item.active').removeClass('active');
+          $('.nav.mainmenu .nav-item.active').removeClass('active');
+          // Assign active class to new cat for magicLine
           $('.nav .nav-item [data-swipe='+newCat+']').closest('.nav-item').addClass('active');
-
           // Slide magicLine to the new swiped cat
-          magicLine.refresh();
+          mainMagicLine.refresh();
 
           // Close all opened submenus(except current)
           $('.submenu-block:not([data-dropdown='+newCat+'])').slideUp();
@@ -123,7 +123,7 @@
 
       // Init magicLine when page fully loaded to get exact position to appear
       $(window).on('load', function () {
-        magicLine = new MagicLine();
+        mainMagicLine = new MagicLine($('.mainmenu'));
       });
 
       //Submenu show
@@ -163,7 +163,7 @@
         }, 300);
 
         // Assign active class to newly selected sub menu item
-        $('.nav.submenu .nav-link.active').removeClass('active');
+        $('.nav.submenu .nav-item.active').removeClass('active');
         newLi.addClass('active');
       });
 
@@ -186,6 +186,8 @@
           $grid.isotope({
             filter: '*'
           });
+          // Remove active class for sub menu item
+          $('.nav.submenu .nav-item.active').removeClass('active');
         });
       });
     </script>
