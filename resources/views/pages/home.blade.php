@@ -4,7 +4,7 @@
 <div class="container p-0">
 
   <!-- Main category navigation -->
-  <ul class="nav mainmenu position-relative nav-x-scroll mx-3">
+  <ul class="nav mainmenu position-relative nav-x-scroll mx-3 d-block">
     @foreach(App\Category::get()->where('parent_id', '') as $category)
       @if($category->childs->count())
         <li class="nav-item dropdown {{ ($category->slug == $initCategory->slug ? 'active' : '') }}">
@@ -27,7 +27,7 @@
     @endforeach
   </ul>
   <!-- Submenu navigation (required to be under separate div cause of nav-x-scroll) -->
-  <ul class="nav submenu nav-x-scroll mx-3">
+  <ul class="nav submenu nav-x-scroll mx-3 d-block">
     @foreach(App\Category::get()->where('parent_id', '') as $category)
       @if($category->childs->count())
         <div class="submenu-block position-relative" data-dropdown="{{ $category->slug }}">
@@ -91,6 +91,9 @@
 
           // Add half li width
           newScrollX += newLi.width() / 2;
+
+          // Substract padding left
+          newScrollX -= 16;
 
           // Excecute the scrolling
           $('.nav-x-scroll').animate({
@@ -156,6 +159,9 @@
 
         // Add target scroll to currentScroll
         scroll = difference + currentScroll;
+
+        // Substract padding left
+        scroll -= 16;
 
         // Excecute the scrolling
         $('.nav.submenu.nav-x-scroll').animate({
