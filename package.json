@@ -23,9 +23,7 @@
         "@popperjs/core": "^2.1.1",
         "aos": "^2.3.4",
         "bootstrap": "^4.4.1",
-        "isotope-layout": "^3.0.6",
         "jquery": "^3.4.1",
-        "jquery-bridget": "^2.0.1",
         "popper.js": "^1.16.1",
         "swipejs": "^2.2.14"
     }
