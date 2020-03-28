@@ -14,7 +14,7 @@ class AjaxController extends Controller
 
       return response()->json([
         'title' => $product->title,
-        'image' => $product->image->src,
+        'image' => asset('storage/'.$product->image->src),
         'description' => '',
         'category' => $product->category->title,
       ]);

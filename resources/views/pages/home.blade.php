@@ -70,7 +70,7 @@
 
 </div>
 
-</div>
+@include('includes.popup')
 
   @push('scripts')
     <script type="text/javascript">

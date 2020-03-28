@@ -12272,3 +12272,48 @@ body .nav .nav-item .nav-link {
   border-radius: 0 0 1.25rem 1.25rem;
 }
 
+.image-popup .modal-dialog {
+  margin: 1rem;
+}
+
+.image-popup .modal-dialog .modal-content {
+  border: 0;
+  border-radius: 1.25rem;
+  box-shadow: 0px 0px 3px #aaa;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header {
+  padding: 0;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header img {
+  width: 100%;
+  border-radius: 1.25rem 1.25rem 0 0;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header .close {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  opacity: 1;
+  color: #666;
+  box-shadow: 0px 0px 4px #666;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header .close:hover {
+  color: #333;
+  box-shadow: 0px 0px 5px #333;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header .close span {
+  vertical-align: super;
+}
+
+.modal-backdrop.show {
+  display: none;
+}
+

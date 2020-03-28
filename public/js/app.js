@@ -18935,10 +18935,17 @@ __webpack_require__(/*! ./imagePopup.js */ "./resources/js/imagePopup.js"); //wi
       url: '/ajax/product/' + id,
       data: '_token = ' + $('meta[name="_token"]').attr('content'),
       success: function success(data) {
-        console.log(data);
+        insertData(data);
+        $('.image-popup').modal('show');
       }
     });
-  };
+  }; // Insert new product data to modal html
+
+
+  function insertData(data) {
+    $('.image-popup').find('h2').text(data.title);
+    $('.image-popup').find('img').attr('src', data.image);
+  }
 })();
 
 /***/ }),
