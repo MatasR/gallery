@@ -13,6 +13,9 @@ require('./customIsotope.js');
 // My custom magicLine plugin
 require('./magicLine.js');
 
+// My custom modal plugin
+require('./imagePopup.js');
+
 //window._ = require('lodash');
 
 /**

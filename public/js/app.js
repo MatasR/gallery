@@ -18745,7 +18745,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 3. MagicLine init
 4. Mainmenu links opens submenu
 5. Submenu navigation
-6. Submenu remove link .active on mainmenu link click if its has .dropdown and .active*/
+6. Init custom isotope grid
+7. Submenu remove link .active on mainmenu link click if its has .dropdown and .active*/
 // 1. Swipe init and callback
 
 
@@ -18830,7 +18831,12 @@ $('.nav.submenu .nav-link').click(function () {
 
   $('.nav.submenu .nav-item.active').removeClass('active');
   newLi.addClass('active');
-}); // 6. Submenu remove link .active on mainmenu link click if it has .dropdown and .active
+}); // 6. Init custom isotope grid
+// only for those who have submenu (is parent)
+
+$('.category-swipe[is-parent]').each(function (index, element) {
+  $(element).customIsotope();
+}); // 7. Submenu remove link .active on mainmenu link click if it has .dropdown and .active
 
 $('.mainmenu').on('click', '.nav-item.dropdown.active .nav-link', function () {
   var cat = $(this).data('swipe');
@@ -18851,18 +18857,16 @@ window.$ = __webpack_require__(/*! jquery */ "./node_modules/jquery/dist/jquery.
 __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.js");
 
 window.AOS = __webpack_require__(/*! aos */ "./node_modules/aos/dist/aos.js");
-window.Swipe = __webpack_require__(/*! swipejs */ "./node_modules/swipejs/swipe.js"); //var Isotope = require('isotope-layout');
-// For some reason isotope does not work without jquery-bridget
-
-/*var jQueryBridget = require('jquery-bridget');
-jQueryBridget('isotope', Isotope, $);*/
-// My custom isotope plugin
+window.Swipe = __webpack_require__(/*! swipejs */ "./node_modules/swipejs/swipe.js"); // My custom isotope plugin
 // Reason is that it crashes with BS card-columns
 
 __webpack_require__(/*! ./customIsotope.js */ "./resources/js/customIsotope.js"); // My custom magicLine plugin
 
 
-__webpack_require__(/*! ./magicLine.js */ "./resources/js/magicLine.js"); //window._ = require('lodash');
+__webpack_require__(/*! ./magicLine.js */ "./resources/js/magicLine.js"); // My custom modal plugin
+
+
+__webpack_require__(/*! ./imagePopup.js */ "./resources/js/imagePopup.js"); //window._ = require('lodash');
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -18909,6 +18913,30 @@ __webpack_require__(/*! ./magicLine.js */ "./resources/js/magicLine.js"); //wind
     $('.mainmenu').on('click', '.nav-item.active [data-swipe=' + cat + ']', function () {
       // dont want to work
       grid.find('.card').show();
+    });
+  };
+})();
+
+/***/ }),
+
+/***/ "./resources/js/imagePopup.js":
+/*!************************************!*\
+  !*** ./resources/js/imagePopup.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function () {
+  imagePopup = function imagePopup(card) {
+    var id = card.attr('id'); // Nusiust id per ajax ir gaut more product info
+
+    $.ajax({
+      type: 'GET',
+      url: '/ajax/product/' + id,
+      data: '_token = ' + $('meta[name="_token"]').attr('content'),
+      success: function success(data) {
+        console.log(data);
+      }
     });
   };
 })();

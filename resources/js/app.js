@@ -7,7 +7,8 @@ require('./bootstrap');
 3. MagicLine init
 4. Mainmenu links opens submenu
 5. Submenu navigation
-6. Submenu remove link .active on mainmenu link click if its has .dropdown and .active*/
+6. Init custom isotope grid
+7. Submenu remove link .active on mainmenu link click if its has .dropdown and .active*/
 
 // 1. Swipe init and callback
 window.mySwipe = new Swipe(document.getElementById('mySwipe'), {
@@ -115,7 +116,13 @@ $('.nav.submenu .nav-link').click( function(){
   newLi.addClass('active');
 });
 
-// 6. Submenu remove link .active on mainmenu link click if it has .dropdown and .active
+// 6. Init custom isotope grid
+// only for those who have submenu (is parent)
+$('.category-swipe[is-parent]').each(function(index, element){
+  $(element).customIsotope();
+});
+
+// 7. Submenu remove link .active on mainmenu link click if it has .dropdown and .active
 $('.mainmenu').on('click', '.nav-item.dropdown.active .nav-link', function(){
   var cat = $(this).data('swipe');
   $('.nav.submenu [data-dropdown='+cat+'] .nav-item.active').removeClass('active');
