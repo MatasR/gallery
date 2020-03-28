@@ -9,6 +9,13 @@ $enable-responsive-font-sizes: true;
 //Import AOS js
 @import "node_modules/aos/src/sass/aos";
 
+//Isotope and bootstrap cards relationship
+.grid-sizer {
+  width: calc(100% / 3);
+  height: 50px;
+  background: red;
+}
+
 //Required styles for SwipeJS
 .swipe {
   overflow: hidden;

@@ -11,7 +11,7 @@
     var active = nav.find('.active').length ? nav.find('.active') : nav.find('.nav-item').first();
 
     // Create the magic line (global var for latter animateMenu access)
-    theLine = $('<div ddata-aos="flip-left" data-aos-duration="1000"></div>').attr('class', 'magic-line');
+    theLine = $('<div data-aos="flip-left" data-aos-duration="1000"></div>').attr('class', 'magic-line');
     theLine.css('left', active.position().left).css('width', active.css('width'));
 
     // Append the magic line to main navigation

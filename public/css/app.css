@@ -12122,6 +12122,12 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   transform: perspective(2500px) rotateX(0);
 }
 
+.grid-sizer {
+  width: calc(100% / 3);
+  height: 50px;
+  background: red;
+}
+
 .swipe {
   overflow: hidden;
   visibility: hidden;
