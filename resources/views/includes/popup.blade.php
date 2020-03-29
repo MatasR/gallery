@@ -1,4 +1,4 @@
-<div class="image-popup modal">
+<div class="image-popup modal fade">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -17,7 +17,7 @@
       </div>
 
       <div class="modal-footer border-0 pt-0 justify-content-start">
-        <button type="button" class="btn btn-primary rounded-pill">Kreiptis</button>
+        <button type="button" class="btn btn-secondary rounded-pill">Kreiptis</button>
       </div>
 
     </div>
