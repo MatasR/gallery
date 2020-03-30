@@ -1,17 +1,12 @@
-File for a to do list
+#File for a to do list
 
 master:
-1.
+1. transition on isotope filter event
 2.
 3.
 
 modal:
 1. loading screen while ajax request is on
-2.
-3.
-
-customIsotope:
-1. transition on filter event
 2.
 3.
 
