@@ -12267,6 +12267,7 @@ body .nav .nav-item .nav-link {
   cursor: pointer;
   border-radius: 1.25rem;
   overflow: hidden;
+  display: block;
   /*&:hover {
     .card-img-overlay {
       .card-title {
@@ -12282,9 +12283,12 @@ body .nav .nav-item .nav-link {
   transition: all 300ms ease-in-out;
 }
 
+.image-popup.fade:not(.show) .modal-dialog {
+  transform: scale(1);
+}
+
 .image-popup .modal-dialog {
-  padding: 1rem;
-  margin: 0;
+  padding: 0.5rem;
 }
 
 .image-popup .modal-dialog .modal-content {
@@ -12327,9 +12331,5 @@ body .nav .nav-item .nav-link {
 
 .modal-backdrop.show {
   display: none;
-}
-
-.image-popup.modal.fade:not(.show) .modal-dialog {
-  transform: scale(1);
 }
 

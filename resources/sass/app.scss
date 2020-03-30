@@ -157,6 +157,7 @@ body {
     cursor: pointer;
     border-radius: 1.25rem;
     overflow: hidden;
+    display: block;
     .card-img-overlay {
       .card-title {
         background: rgba(0, 0, 0, 0.3);
@@ -174,10 +175,17 @@ body {
   }
 }
 
+// Image popup
 .image-popup {
+  &.fade {
+    &:not(.show) {
+      .modal-dialog {
+        transform: scale(1);
+      }
+    }
+  }
   .modal-dialog {
-    padding: 1rem; // styling shit, can be removed actually
-    margin: 0;// Temp
+    padding: 0.5rem; // styling shit, can be removed actually
     .modal-content {
       border: 0;
       border-radius: 1.25rem;
@@ -216,16 +224,5 @@ body {
 .modal-backdrop {
   &.show {
     display: none;
-  }
-}
-
-.image-popup.modal {
-  //transition: none !important;
-  &.fade {
-    &:not(.show) {
-      .modal-dialog {
-        transform: scale(1);
-      }
-    }
   }
 }

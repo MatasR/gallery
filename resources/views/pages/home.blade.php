@@ -54,11 +54,11 @@
           @foreach($category->products->merge($category->childs_products) as $product)
             <div {{ ($category->slug == $initCategory->slug ? 'data-aos=fade-up' : '') }} id="{{ $product->id }}" class="card text-white text-center border-0 {{ ($product->category->parent?$product->category->parent->slug:'') }} {{ $product->category->slug }}">
               <img class="card-img" src="{{ asset('storage/'.$product->image->src) }}"/>
-              <div class="card-img-overlay">
+              <!--<div class="card-img-overlay">
                 <h4 class="card-title font-weight-normal position-absolute fixed-bottom mb-0 py-2">
                   {{ $product->title }}
                 </h4>
-              </div>
+              </div>-->
             </div>
           @endforeach
         </div>
