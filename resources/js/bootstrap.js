@@ -6,13 +6,15 @@ window.AOS = require('aos');
 
 window.Swipe = require('swipejs');
 
-var Isotope = require('isotope-layout');
+// My custom isotope plugin
+// Reason is that it crashes with BS card-columns
+require('./customIsotope.js');
 
-// For some reason isotope does not work without jquery-bridget
-var jQueryBridget = require('jquery-bridget');
-jQueryBridget('isotope', Isotope, $);
-
+// My custom magicLine plugin
 require('./magicLine.js');
+
+// My custom modal plugin
+require('./imagePopup.js');
 
 //window._ = require('lodash');
 

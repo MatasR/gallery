@@ -12122,6 +12122,12 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   transform: perspective(2500px) rotateX(0);
 }
 
+.grid-sizer {
+  width: calc(100% / 3);
+  height: 50px;
+  background: red;
+}
+
 .swipe {
   overflow: hidden;
   visibility: hidden;
@@ -12257,7 +12263,73 @@ body .nav .nav-item .nav-link {
        column-gap: 0.75rem;
 }
 
-.card-columns .card .card-title {
+.card-columns .card {
+  cursor: pointer;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  display: block;
+  /*&:hover {
+    .card-img-overlay {
+      .card-title {
+        bottom: 0;
+      }
+    }
+  }*/
+}
+
+.card-columns .card .card-img-overlay .card-title {
   background: rgba(0, 0, 0, 0.3);
+  bottom: -44px;
+  transition: all 300ms ease-in-out;
+}
+
+.image-popup.fade:not(.show) .modal-dialog {
+  transform: scale(1);
+}
+
+.image-popup .modal-dialog {
+  padding: 0.5rem;
+}
+
+.image-popup .modal-dialog .modal-content {
+  border: 0;
+  border-radius: 1.25rem;
+  box-shadow: 0px 2px 3px #aaa;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.image-popup .modal-dialog .modal-content .modal-header {
+  padding: 0;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header img {
+  width: 100%;
+  border-radius: 1.25rem 1.25rem 0 0;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header .close {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 40px;
+  opacity: 1;
+  color: #666;
+  box-shadow: 0px 0px 4px #666;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header .close:hover {
+  color: #333;
+  box-shadow: 0px 0px 5px #333;
+}
+
+.image-popup .modal-dialog .modal-content .modal-header .close span {
+  vertical-align: super;
+}
+
+.modal-backdrop.show {
+  display: none;
 }
 
