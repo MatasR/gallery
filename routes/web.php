@@ -14,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'AppController@home');
+Route::get('/apie-mus', function(){
+  return view('pages.about');
+});
+
 Route::get('ajax/product/{id}', 'AjaxController@product');
 
 Route::get('/welcome', function () {
