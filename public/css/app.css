@@ -12122,12 +12122,6 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   transform: perspective(2500px) rotateX(0);
 }
 
-.grid-sizer {
-  width: calc(100% / 3);
-  height: 50px;
-  background: red;
-}
-
 .swipe {
   overflow: hidden;
   visibility: hidden;
@@ -12250,6 +12244,16 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   width: 100%;
 }
 
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 40px;
+  /* Margin bottom by footer height */
+}
+
 body .nav .nav-item .nav-link {
   font-size: 13px;
   font-weight: 600;
@@ -12268,8 +12272,6 @@ body .nav .nav-item .nav-link {
   border-radius: 1.25rem;
   overflow: hidden;
   display: block;
-  margin-bottom: 0;
-  margin-top: 0.75rem;
   /*&:hover {
     .card-img-overlay {
       .card-title {
@@ -12363,5 +12365,11 @@ body .nav .nav-item .nav-link {
 
 #about-us .blockquote .blockquote-footer:before {
   content: none;
+}
+
+footer.sticky {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
 }
 
