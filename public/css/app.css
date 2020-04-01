@@ -12333,11 +12333,20 @@ body .nav .nav-item .nav-link {
   display: none;
 }
 
-#about-us .img-fluid {
+#about-us .paralax {
   height: 200px;
   width: 100%;
-  -o-object-fit: cover;
-     object-fit: cover;
+  background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)), url("/img/about.jpg");
+  background-size: cover;
+}
+
+@media (min-width: 768px) {
+  #about-us .paralax {
+    height: 400px;
+    background-attachment: fixed;
+    background-position-x: center;
+    background-position-y: -120px;
+  }
 }
 
 #about-us .map-container {

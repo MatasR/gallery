@@ -229,13 +229,20 @@ body {
 
 // About-us
 #about-us {
-  .img-fluid {
+  .paralax {
     height: 200px;
     width: 100%;
-    object-fit: cover;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)), url('/img/about.jpg');
+    background-size: cover;
+    @include media-breakpoint-up(md) {
+      height: 400px;
+      background-attachment: fixed;
+      background-position-x: center;
+      background-position-y: -120px;
+    }
   }
   #about-us-desc {
-    
+
   }
   .map-container {
     height: 250px;

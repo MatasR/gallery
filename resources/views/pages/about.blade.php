@@ -3,7 +3,7 @@
 
 <div class="" id="about-us">
 
-  <img class="img-fluid" src="{{ asset('img/about.jpg')}}"/>
+  <div class="paralax"></div>
 
   <div class="container">
 
@@ -15,7 +15,7 @@
         <h2 class="display-4 text-sm-center my-3 my-sm-5 text-secondary">Apie mus</h2>
 
         <p class="p-sm-2 p-lg-4 px-2 px-sm-3 mb-0" id="about-us-desc">
-          VILNIUS. ŽVĖRYNAS. „MAŽOJI GALERIJA“. Jau 20 metų gyvuojančioje meno galerijoje, lankytojas suras rūpestingai parinktas profesionalių dailininkų tapybos, grafikos, keramikos, skulptūros ir autorinės juvelyrikos kolekcijas. Padedame renkantis meno kūrinius interjerams, atliekame užsakymus. VISKAS ĮMANOMA – REIKIA TIK NORĖTI…
+          Vilnius. Žvėrynas. „Mažoji galerija". Jau 20 metų gyvuojančioje meno galerijoje, lankytojas suras rūpestingai parinktas profesionalių dailininkų tapybos, grafikos, keramikos, skulptūros ir autorinės juvelyrikos kolekcijas. Padedame renkantis meno kūrinius interjerams, atliekame užsakymus. <b>Viskas įmanoma – reikia tik norėti.</b>
         </p>
 
       </div>
