@@ -63,7 +63,7 @@
 
     </blockquote>
 
-    <div id="map" class="map-container mb-3"></div>
+    <div id="map" class="map-container"></div>
 
   </div>
 

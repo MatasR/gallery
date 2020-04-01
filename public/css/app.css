@@ -12268,6 +12268,8 @@ body .nav .nav-item .nav-link {
   border-radius: 1.25rem;
   overflow: hidden;
   display: block;
+  margin-bottom: 0;
+  margin-top: 0.75rem;
   /*&:hover {
     .card-img-overlay {
       .card-title {
@@ -12351,6 +12353,12 @@ body .nav .nav-item .nav-link {
 
 #about-us .map-container {
   height: 250px;
+}
+
+@media (min-width: 768px) {
+  #about-us .map-container {
+    height: 400px;
+  }
 }
 
 #about-us .blockquote .blockquote-footer:before {

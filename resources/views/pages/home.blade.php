@@ -45,7 +45,7 @@
 
   <!-- Products list -->
   <!-- SwipeJS plugin -->
-  <div id="mySwipe" class="swipe mt-3">
+  <div id="mySwipe" class="swipe">
     <div class="swipe-wrap">
       @foreach(App\Category::with('products', 'childs_products')->get()->where('parent_id', '') as $category)
       <div class="category-swipe" id="{{ $category->slug }}" {{ $category->childs->count() ? 'is-parent' : '' }}>
@@ -99,7 +99,7 @@
 
 
       // I am gonna just put this code right here
-      // because i dont wanna run in on about us page 
+      // because i dont wanna run in on about us page
 
       /*custom JS content
 

@@ -158,6 +158,8 @@ body {
     border-radius: 1.25rem;
     overflow: hidden;
     display: block;
+    margin-bottom: 0;
+    margin-top: 0.75rem;
     .card-img-overlay {
       .card-title {
         background: rgba(0, 0, 0, 0.3);
@@ -246,6 +248,9 @@ body {
   }
   .map-container {
     height: 250px;
+    @include media-breakpoint-up(md) {
+      height: 400px;
+    }
   }
   .blockquote {
     .blockquote-footer {
