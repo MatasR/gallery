@@ -1,49 +1,52 @@
 @extends('layouts.default')
 @section('content')
 
+<div class="" id="about-us">
+
   <img class="img-fluid" src="{{ asset('img/about.jpg')}}"/>
 
-  <div class="container bg-primary">
+  <div class="container">
 
     <div class="row">
 
-      <div class="col-6">
+      <!-- ABOUT -->
+      <div class="col-sm-6">
 
-        <h2 class="display-4 bg-success text-center my-5 text-secondary">Apie mus</h2>
+        <h2 class="display-4 text-sm-center my-3 my-sm-5 text-secondary">Apie mus</h2>
 
-        <p class="p-3 mb-0">
+        <p class="px-2 px-sm-3 mb-0">
           VILNIUS. ŽVĖRYNAS. „MAŽOJI GALERIJA“. Jau 20 metų gyvuojančioje meno galerijoje, lankytojas suras rūpestingai parinktas profesionalių dailininkų tapybos, grafikos, keramikos, skulptūros ir autorinės juvelyrikos kolekcijas. Padedame renkantis meno kūrinius interjerams, atliekame užsakymus. VISKAS ĮMANOMA – REIKIA TIK NORĖTI…
         </p>
 
       </div>
 
-      <div class="col-6">
+      <!-- CONTACTS -->
+      <div class="col-sm-6">
 
-        <h2 class="display-4 text-center my-5 text-secondary">Kontaktai</h2>
+        <h2 class="display-4 text-sm-center my-3 my-sm-5 text-secondary">Kontaktai</h2>
 
-        <div class="row">
+        <div class="container">
 
-          <div class="col text-right">
-
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">El. paštas:</li>
-              <li class="list-group-item">Adresas:</li>
-              <li class="list-group-item">Volanda:</li>
-              <li class="list-group-item">Ignė:</li>
-            </ul>
-
-          </div>
-
-          <div class="col">
-
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">info@smallgallery.net</li>
-              <li class="list-group-item">Latvių g. 19A-1, Vilnius</li>
-              <li class="list-group-item">+370 682 62796</li>
-              <li class="list-group-item">+370 698 41160</li>
-            </ul>
-
-          </div>
+          <table class="table">
+            <tbody>
+              <tr>
+                <td class="border-0">El. paštas:</td>
+                <td class="border-0"><a href="mailto:info@smallgallery.net">info@smallgallery.net</a></td>
+              </tr>
+              <tr>
+                <td>Adresas:</td>
+                <td><a href="https://www.google.lt/maps/place/Latvi%C5%B3+g.+19a,+Vilnius" target="_blank">Latvių g. 19A-1, Vilnius</a></td>
+              </tr>
+              <tr>
+                <td>Volanda:</td>
+                <td><a href="tel:+370 682 62796">+370 682 62796</a></td>
+              </tr>
+              <tr>
+                <td>Ignė:</td>
+                <td><a href="tel:+370 698 41160">+370 698 41160</a></td>
+              </tr>
+            </tbody>
+          </table>
 
         </div>
 
@@ -51,13 +54,20 @@
 
     </div>
 
-    <p class="lead text-center my-4">
-      Lauksime jūsų apsilankant!
-    </p>
+    <blockquote class="blockquote text-center">
+
+      <p class="mb-1">
+        Lauksime jūsų apsilankant!
+      </p>
+      <footer class="blockquote-footer">I-V 10-18 val.<br>VI 11-16 val.</footer>
+
+    </blockquote>
 
     <div id="map" class="map-container mb-3"></div>
 
   </div>
+
+</div>
 
   @push('scripts')
     <script type="text/javascript">

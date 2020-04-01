@@ -12333,7 +12333,18 @@ body .nav .nav-item .nav-link {
   display: none;
 }
 
-.map-container {
-  height: 500px;
+#about-us .img-fluid {
+  height: 200px;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#about-us .map-container {
+  height: 250px;
+}
+
+#about-us .blockquote .blockquote-footer:before {
+  content: none;
 }
 

@@ -227,7 +227,21 @@ body {
   }
 }
 
-//
-.map-container {
-  height: 500px;
+// About-us
+#about-us {
+  .img-fluid {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .map-container {
+    height: 250px;
+  }
+  .blockquote {
+    .blockquote-footer {
+      &:before {
+        content: none;
+      }
+    }
+  }
 }
