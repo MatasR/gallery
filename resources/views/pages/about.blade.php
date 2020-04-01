@@ -27,22 +27,22 @@
 
         <div class="container">
 
-          <table class="table">
+          <table class="table mb-0">
             <tbody>
               <tr>
-                <td class="border-0">El. paštas:</td>
+                <td class="text-right border-0">El. paštas:</td>
                 <td class="border-0"><a href="mailto:info@smallgallery.net">info@smallgallery.net</a></td>
               </tr>
               <tr>
-                <td>Adresas:</td>
+                <td class="text-right">Adresas:</td>
                 <td><a href="https://www.google.lt/maps/place/Latvi%C5%B3+g.+19a,+Vilnius" target="_blank">Latvių g. 19A-1, Vilnius</a></td>
               </tr>
               <tr>
-                <td>Volanda:</td>
+                <td class="text-right">Volanda:</td>
                 <td><a href="tel:+370 682 62796">+370 682 62796</a></td>
               </tr>
               <tr>
-                <td>Ignė:</td>
+                <td class="text-right">Ignė:</td>
                 <td><a href="tel:+370 698 41160">+370 698 41160</a></td>
               </tr>
             </tbody>
@@ -54,7 +54,7 @@
 
     </div>
 
-    <blockquote class="blockquote text-center">
+    <blockquote class="blockquote text-center mt-3 mb-4">
 
       <p class="mb-1">
         Lauksime jūsų apsilankant!
