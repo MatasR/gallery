@@ -31,14 +31,14 @@
     // 1.
     var position = {};
     position.top = card.offset().top - $(document).scrollTop();
-    position.left = card.offset().left;
+    //position.left = card.offset().left;
 
     //console.log('Before: ');
     //console.log(position);
 
     // Remove margin from both positions
     position.top -= 16;
-    position.left -= 16;// Will need this when two cols at least
+    //position.left -= 16;// Will need this when two cols at least
 
     //console.log('After: ');
     //console.log(position);
@@ -47,7 +47,7 @@
     var modal = $('.image-popup');
     modal.css(position).delay(400).animate({
       top: 0,
-      left: 0
+      //left: 0
     });
 
     modal.find('.modal-body, .modal-footer').slideUp().delay(300).slideDown(300);
