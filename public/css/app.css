@@ -12262,29 +12262,56 @@ body .nav .nav-item .nav-link {
   padding: 0.5rem 0.9rem;
 }
 
-.card-columns {
+#home .card-columns {
   -moz-column-gap: 0.75rem;
        column-gap: 0.75rem;
 }
 
-.card-columns .card {
+#home .card-columns .card {
   cursor: pointer;
   border-radius: 1.25rem;
   overflow: hidden;
-  display: block;
-  /*&:hover {
-    .card-img-overlay {
-      .card-title {
-        bottom: 0;
-      }
-    }
-  }*/
 }
 
-.card-columns .card .card-img-overlay .card-title {
+#home .card-columns .card .card-img-overlay .card-title {
   background: rgba(0, 0, 0, 0.3);
   bottom: -44px;
   transition: all 300ms ease-in-out;
+}
+
+#authors .card .card-body a {
+  color: inherit;
+}
+
+#authors .card .card-body a:hover {
+  text-decoration: none;
+}
+
+#authors .card .card-body .card-title {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 992px) {
+  #authors .card-columns {
+    -moz-column-count: 4;
+         column-count: 4;
+  }
+}
+
+@media (max-width: 767.98px) {
+  #authors .card-columns {
+    -moz-column-count: 2;
+         column-count: 2;
+  }
+}
+
+#authors .card-columns .card .card-img-top {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+#authors .card-columns .card .card-body .card-title {
+  font-size: 1.25rem;
 }
 
 .image-popup.fade:not(.show) .modal-dialog {
@@ -12371,5 +12398,6 @@ footer.sticky {
   position: absolute;
   bottom: 0;
   width: 100%;
+  font-size: 14px;
 }
 

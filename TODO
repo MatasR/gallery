@@ -3,7 +3,7 @@
 master:
 1. transition on isotope filter event
 2. tide js scripts on which pages they should run
-3.
+3. products table has images - remove images table
 
 modal:
 1. loading screen while ajax request is on
@@ -12,5 +12,10 @@ modal:
 
 about us:
 1.
+2.
+3.
+
+authors:
+1. Author img backend select if photo or it's top product
 2.
 3.

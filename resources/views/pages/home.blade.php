@@ -1,7 +1,7 @@
 @extends('layouts.default')
 @section('content')
 
-<div class="container p-0">
+<div id="home" class="container p-0">
 
   <!-- Main category navigation -->
   <ul class="nav mainmenu position-relative nav-x-scroll mx-3 d-block">
@@ -11,13 +11,6 @@
           <a class="nav-link text-secondary dropdown-toggle" href="#" data-swipe="{{ $category->slug }}">
             {{ $category->title }}
           </a>
-          <!--
-          <div class="dropdown-menu">
-            @foreach($category->childs as $child)
-              <a class="dropdown-item" href="#" data-swipe="{{ $child->slug }}">{{ $child->title }}</a>
-            @endforeach
-          </div>
-          -->
         </li>
       @else
         <li class="nav-item {{ ($category->slug == $initCategory->slug ? 'active' : '') }}">
