@@ -12128,12 +12128,12 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   position: relative;
 }
 
-.swipe-wrap {
+.swipe .swipe-wrap {
   overflow: hidden;
   position: relative;
 }
 
-.swipe-wrap > div {
+.swipe .swipe-wrap > div {
   float: left;
   width: 100%;
   position: relative;
@@ -12250,7 +12250,7 @@ html {
 }
 
 body {
-  margin-bottom: 40px;
+  margin-bottom: 54px;
   /* Margin bottom by footer height */
 }
 
@@ -12262,18 +12262,18 @@ body .nav .nav-item .nav-link {
   padding: 0.5rem 0.9rem;
 }
 
-#home .card-columns {
+.card-columns {
   -moz-column-gap: 0.75rem;
        column-gap: 0.75rem;
 }
 
-#home .card-columns .card {
+.card-columns .card {
   cursor: pointer;
   border-radius: 1.25rem;
   overflow: hidden;
 }
 
-#home .card-columns .card .card-img-overlay .card-title {
+.card-columns .card .card-img-overlay .card-title {
   background: rgba(0, 0, 0, 0.3);
   bottom: -44px;
   transition: all 300ms ease-in-out;

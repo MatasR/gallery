@@ -26,8 +26,12 @@ class AppController extends Controller
     public function author(Request $request){
 
       $author = Author::find($request->id);
+      $initCategory = $author->categories->unique()->first();
 
-      return view('pages.author')->with('author', $author);
+      return view('pages.author')->with([
+        'author' => $author,
+        'initCategory' => $initCategory
+      ]);
 
     }
 
