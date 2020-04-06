@@ -20,6 +20,8 @@ Route::get('apie-mus', 'AppController@about');
 
 Route::get('ajax/product/{id}', 'AjaxController@product');
 
+Route::get('scrap', 'ScrapController@index');
+
 Route::get('/welcome', function () {
     return view('welcome');
 });
