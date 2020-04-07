@@ -20,9 +20,11 @@ Route::get('apie-mus', 'AppController@about');
 
 Route::get('ajax/product/{id}', 'AjaxController@product');
 
-Route::get('scrap/cats', 'ScrapController@cats');
-Route::get('scrap/authors', 'ScrapController@authors');
-Route::get('scrap/products', 'ScrapController@products');
+/*Route::get('scrap/products', 'ScrapController@getProducts');
+Route::get('scrap/import', 'ScrapController@import');
+Route::get('scrap/importproducts', 'ScrapController@importProducts');
+Route::get('scrap/getProducts', 'ScrapController@getProducts');
+Route::get('scrap/importauthorproducts','ScrapController@importAuthorProducts');*/
 
 Route::get('/welcome', function () {
     return view('welcome');

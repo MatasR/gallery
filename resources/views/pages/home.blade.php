@@ -46,7 +46,7 @@
         <div class="card-columns mx-3">
           @foreach($category->products->merge($category->childs_products) as $product)
             <div {{ ($category->slug == $initCategory->slug ? 'data-aos=fade-up' : '') }} id="{{ $product->id }}" class="card text-white text-center border-0 {{ ($product->category->parent?$product->category->parent->slug:'') }} {{ $product->category->slug }}">
-              <img class="card-img" src="{{ asset('storage/'.$product->image->src) }}"/>
+              <img class="card-img" src="{{ asset('storage'.$product->images) }}"/>
               <!--<div class="card-img-overlay">
                 <h4 class="card-title font-weight-normal position-absolute fixed-bottom mb-0 py-2">
                   {{ $product->title }}

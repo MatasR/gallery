@@ -53,7 +53,7 @@
             <div class="card-columns">
               @foreach($author->products as $product)
                 <div class="card">
-                  <img class="card-img" src="{{ asset('storage/'.$product->image->src) }}"/>
+                  <img class="card-img" src="{{ asset('storage'.$product->images) }}"/>
                 </div>
               @endforeach
             </div>

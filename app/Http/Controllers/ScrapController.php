@@ -3,21 +3,188 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Storage;
 use Goutte\Client;
+use App\Category;
+use App\Product;
+use App\Author;
 
 class ScrapController extends Controller
 {
-    private function largeImage($url){
 
-      return preg_replace('/(-[0-9]+x[0-9]+)+_c/', '', $url);
+    public function importAuthorProducts(){
+
+      $catID = [
+        'grafika' => 11,
+        'tapyba' => 12,
+        'klasika' => 13
+      ];
+
+      foreach($this->getAuthors() as $cat => $authors){
+
+        $cat = $catID[$cat];
+
+        foreach($authors as $i => $author){
+
+          // Skip some authors
+          if($i <= 46)
+            continue;
+
+          var_dump($i);
+          $authorID = Author::where('name', $author['name'])->first()->id;
+
+          $products = $this->getProducts($author['link']);
+          foreach($products as $product){
+
+            $this->importProduct($product['title'], $cat, $product['image'], $authorID);
+
+          }
+
+        }
+
+      }
+
+    }
+
+    public function import(){
+
+      //foreach($this->cats() as $cat){
+
+        $cat['title'] = 'Keramika';
+        $cat['link'] = 'https://smallgallery.net/keramika/';
+
+        $insertedCat = Category::where('slug', Str::slug($cat['title']))->first();
+        if(!$insertedCat){
+          // Add cat to categories table
+          $insertedCat = Category::create([
+            'title' => Str::ucfirst($cat['title']),
+            'slug' => Str::slug($cat['title'], '-')
+          ]);
+        }
+
+        // If has childs
+        if(isset($cat['cats'])){
+          foreach($cat['cats'] as $subcat){
+
+            $insertedSubcat = Category::where('slug', Str::slug($subcat['title']))->first();
+            if(!$insertedSubcat){
+              // Add subcat to categories table
+              $insertedSubcat = Category::create([
+                'title' => Str::ucfirst($subcat['title']),
+                'slug' => Str::slug($subcat['title']),
+                'parent_id' => $insertedCat->id
+              ]);
+            }
+
+            // Import products
+            $products = $this->getProducts($subcat['link']);
+            foreach($products as $product){
+              $this->importProduct($product['title'], $insertedSubcat->id, $product['image']);
+            }
+
+          }
+        }else{
+
+          // No child - import products
+          $products = $this->getProducts($cat['link']);
+          foreach($products as $product){
+            $this->importProduct($product['title'], $insertedCat->id, $product['image']);
+          }
+        }
+
+      //}
+
+    }
+
+    public function importProducts(){
+
+      $products = $this->getProducts('https://smallgallery.net/antikvaras/');
+
+      //$i = 0;
+      foreach($products as $product){
+
+        if($product['title']){
+
+          // Check if product already exists
+          if(!Product::where('title', $product['title'])->first()){
+
+            $img = file_get_contents($product['image']);
+            $imgName = '/images/April2020/'.substr($product['image'], strrpos($product['image'], '/') + 1);
+            Storage::put('/public'.$imgName, $img);
+
+            // Insert to database products table
+            $inserted = Product::create([
+              'title' => $product['title'],
+              'category_id' => 16, //Antikvaras
+              //'author_id' => 122, //Levas Žiriakovas
+              'images' => '["'.$imgName.'"]'
+            ]);
+
+            echo 'Product "'.$product['title'].'" imported with ID:'.$inserted->id.'<br>';
+
+          }else
+            echo 'Product "'.$product['title'].'" already exists<br>';
+
+        }else{
+
+          $img = file_get_contents($product['image']);
+          $imgName = '/images/April2020/'.substr($product['image'], strrpos($product['image'], '/') + 1);
+          Storage::put('/public'.$imgName, $img);
+
+          $images = $inserted->images;
+          //$images = str_replace('"', '', $images);
+          $images = str_replace('[', '', $images);
+          $images = str_replace(']', '', $images);
+          $images = explode(',', $images);
+          $images[] = '"'.$imgName.'"';
+          $images = '['.implode(',', $images).']';
+
+          $inserted->images = $images;
+          $inserted->save();
+
+          echo 'Product "'.$inserted->title.'" updated with new image<br>';
+
+        }
+
+        // Limited loop cycle
+        //$i++;
+        //if($i > 100)
+          //break;
+      }
+
+    }
+
+    // Import
+    private function importProduct($title, $cat, $image, $author){
+
+      // Check if product already exists
+      $product = Product::where('title', $title)->first();
+      if(!$product){
+
+        // Save image
+        $img = file_get_contents($image);
+        $imgName = '/images/April2020/'.substr($image, strrpos($image, '/') + 1);
+        Storage::put('/public'.$imgName, $img);
+
+        // Insert to database products table
+        $inserted = Product::create([
+          'title' => $title,
+          'category_id' => $cat,
+          'author_id' => $author,
+          'images' => $imgName
+        ]);
+
+        echo 'Product imported with ID:'.$inserted->id.'<br>';
+      }else
+        echo 'Product already exist: '.$product->id.'<br>';
 
     }
 
     // Get a list of products with their data from a sub cat or author cat link
-    public function products(){
+    public function getProducts($url = 'https://smallgallery.net/antikvaras/'){
 
       $client = new Client();
-      $url = 'https://smallgallery.net/envira/inga-darguzyte/';
 
       $crawler = $client->request('GET', $url);
 
@@ -29,6 +196,9 @@ class ScrapController extends Controller
         else
           $title = '';
 
+        // Fix titles = remove [0-9]+|
+        //$title = preg_replace('/[0-9]+\| /', '', $title);
+
         $image = $this->largeImage($node->filter('a img')->attr('src'));
 
         return [
@@ -38,12 +208,38 @@ class ScrapController extends Controller
 
       });
 
-      dd($products);
+      return $products;
+
+    }
+
+    public function importAuthors(){
+
+      foreach($this->getAuthors() as $cat){
+        $x = 0;
+        foreach($cat as $author){
+
+          $slug = Str::slug(Str::replaceFirst('Š', 'S', $author['name']), '-');
+          //if($x==3)
+            //dd($slug);
+
+          $findAuthor = Author::where('slug', $slug)->first();
+          if(!$findAuthor){
+            Author::create([
+              'name' => $author['name'],
+              'slug' => $slug
+            ]);
+            echo $author['name'].' Added to the db<br>';
+          }else
+            echo $author['name'].' Already exists<br>';
+
+          $x++;
+        }
+      }
 
     }
 
     // Getting authors from nav
-    public function authors(){
+    private function getAuthors(){
 
       $client = new Client();
       $url = 'https://smallgallery.net/';
@@ -73,12 +269,12 @@ class ScrapController extends Controller
 
       }
 
-      dd($authors);
+      return $authors;
 
     }
 
     // Getting cats from nav
-    public function cats(){
+    private function cats(){
 
       $client = new Client();
       $url = 'https://smallgallery.net/';
@@ -118,7 +314,36 @@ class ScrapController extends Controller
 
       });
 
-      dd($cats);
+      // Return results for import function
+      return $cats;
+
+    }
+
+    // Function to extract large img from wp img link
+    private function largeImage($url){
+
+      $originImage = preg_replace('/(-[0-9]+x[0-9]+)+_c/', '', $url);
+      if(get_headers($originImage)[0] == 'HTTP/1.1 200 OK')
+
+        // Origin image exists, use that
+        return $originImage;
+
+      else{
+
+        // No origin image, extract all sizes and choose the biggest
+        preg_match_all('/([0-9]+x[0-9]+)/', $url, $sizes);
+        $results = [];
+        foreach($sizes[0] as $res){
+          $pixs = explode('x', $res);
+          $sum = $pixs[0] * $pixs[1];
+          $results[$sum] = $res;
+        }
+        krsort($results);
+        $result = reset($results);
+
+        return substr($originImage, 0, -4).'-'.$result.'.jpg';
+
+      }
 
     }
 }

@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
+  var $fillable = ['title', 'slug', 'parent_id'];
+
   //Returns child categories
   public function childs(){
     return $this->hasMany(Category::class, 'parent_id');
