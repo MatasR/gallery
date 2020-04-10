@@ -55,7 +55,7 @@
             <div class="card-columns mx-3">
               @foreach($author->products as $product)
                 <div class="card" id="{{ $product->id }}">
-                  <img class="card-img" src="{{ asset('storage'.json_decode($product->images)[0]) }}"/>
+                  <img class="card-img" src="{{ asset('storage/images/thumbs'.substr(json_decode($product->images)[0], 7)) }}"/>
                 </div>
               @endforeach
             </div>
