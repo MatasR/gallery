@@ -25,7 +25,7 @@
         <div class="card-body p-2">
           <a href="{{ url('/autorius/'.$author->id) }}" class="text-secondary stretched-link">
             <h4 class="card-title mb-0">
-              {{ $author->name }}
+              {{ strtoupper($author->name) }}
             </h4>
           </a>
         </div>

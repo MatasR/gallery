@@ -10,10 +10,10 @@
       </div>
 
       <div class="modal-body">
-        <h2 class="mb-3 d-inline-block"></h2>
-        <p class="mb-0">
+        <h2 class="mb-0 d-inline-block"></h2>
+        <!--<p class="mb-0">
           Change the alignment of elements with the vertical-alignment utilities. Please note that vertical-align only affects inline, inline-block, inline-table, and table cell elements.
-        </p>
+        </p>-->
       </div>
 
       <div class="modal-footer border-0 pt-0 justify-content-start">
