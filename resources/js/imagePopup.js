@@ -9,7 +9,7 @@
     // Nusiust id per ajax ir gaut more product info
     $.ajax({
       type: 'GET',
-      url: '/ajax/product/'+id,
+      url: '/ajax/modal/'+id,
       data: '_token = '+$('meta[name="_token"]').attr('content'),
       success: function(data) {
         insertData(data);

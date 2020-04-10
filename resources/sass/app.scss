@@ -148,14 +148,20 @@ body {
   }
 }
 
-// Card columns style
+// Global Card columns style
 .card-columns {
   column-gap: 0.75rem;
+  @include media-breakpoint-up(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-down(sm) {
+    column-count: 2;
+  }
   .card {
     cursor: pointer;
     border-radius: 1.25rem;
     overflow: hidden;
-    //display: block; // Is this really necessary - because i breake authors card-columns element
+    display: inline-flex;
     .card-img-overlay {
       .card-title {
         background: rgba(0, 0, 0, 0.3);
@@ -184,18 +190,9 @@ body {
   }
   // Columns
   .card-columns {
-    @include media-breakpoint-up(lg) {
-      column-count: 4;
-    }
-    @include media-breakpoint-down(sm) {
-      column-count: 2;
-    }
     .card {
       .card-img-top {
         object-fit: cover;
-        @include media-breakpoint-up(lg) {
-
-        }
       }
       .card-body {
         .card-title {

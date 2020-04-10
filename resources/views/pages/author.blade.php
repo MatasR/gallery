@@ -3,22 +3,24 @@
 
   <div class="container" id="author">
     <!-- Author info -->
-    <div class="row bg-warning">
+    <div class="row">
 
+      @if($author->img)
       <div class="col-md-3 col-sm-6">
         <img class="img-fluid" src="{{ asset('storage/'.$author->img) }}" alt="">
       </div>
+      @endif
 
-      <div class="col-md-9 col-sm-6">
+      <div class="col-md-9 col-sm-6 text-secondary">
         <h4>{{ $author->name }}</h4>
-        <p>
-          {{ $author->description }}
-        </p>
+        @if($author->description)
+          <p>{{ $author->description }}</p>
+        @endif
       </div>
 
     </div>
 
-    <div class="row bg-info">
+    <div class="row">
       <!-- Related works -->
       <!-- Navigation -->
       <ul class="nav mainmenu position-relative nav-x-scroll mx-3 d-block">
@@ -40,7 +42,7 @@
 
 
 
-    <div class="row bg-success">
+    <div class="row">
       <!-- Products -->
 
       <!-- Swipe stuff -->
@@ -50,10 +52,10 @@
           <div class="category-swipe" id="{{ $category->slug }}">
 
             <!-- Product cards -->
-            <div class="card-columns">
+            <div class="card-columns mx-3">
               @foreach($author->products as $product)
-                <div class="card">
-                  <img class="card-img" src="{{ asset('storage'.$product->images) }}"/>
+                <div class="card" id="{{ $product->id }}">
+                  <img class="card-img" src="{{ asset('storage'.json_decode($product->images)[0]) }}"/>
                 </div>
               @endforeach
             </div>
@@ -66,6 +68,8 @@
     </div>
 
   </div>
+
+  @include('includes.popup')
 
   @push('scripts')
     <script type="text/javascript">
@@ -115,6 +119,10 @@
       // Init magicLine when page fully loaded to get exact position to appear
       $(window).on('load', function () {
         mainMagicLine = new MagicLine($('.mainmenu'));
+      });
+      // 8. Init imagePopup modal plugin
+      $('.card').on('click', function(){
+        imagePopup($(this));
       });
     </script>
   @endpush

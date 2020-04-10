@@ -17,7 +17,7 @@
   </div>-->
 
   <div class="row">
-    @foreach(App\Author::orderby('name')->get() as $author)
+    @foreach(App\Author::with('products')->get()->sortByDesc(function($elem){return $elem->products->count();}) as $author)
     <div class="col-lg-3 col-md-4 col-6">
 
       <div class="card border-0">

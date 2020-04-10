@@ -9,9 +9,29 @@ use Goutte\Client;
 use App\Category;
 use App\Product;
 use App\Author;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ScrapController extends Controller
 {
+
+    public function makeThumbs(){
+      $products = Product::get();
+      foreach ($products as $product){
+
+        $currentImage = storage_path('app/public'.json_decode($product->images)[0]);
+
+        $filename = last(explode("/", $currentImage));
+
+        //dd(storage_path('app/public/images/April2020/thumbs/'.$filename));
+
+        $newImage = Image::make($currentImage);
+        $newImage->resize(300, null, function ($constraint) {
+          $constraint->aspectRatio();
+        });
+        $newImage->save(storage_path('app/public/images/thumbs/April2020/'.$filename));
+
+      }
+    }
 
     public function importAuthorProducts(){
 

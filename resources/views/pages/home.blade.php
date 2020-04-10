@@ -40,21 +40,29 @@
   <!-- SwipeJS plugin -->
   <div id="mySwipe" class="swipe mt-3">
     <div class="swipe-wrap">
+      @php
+      $usedCats = array();
+      @endphp
       @foreach(App\Category::with('products', 'childs_products')->get()->where('parent_id', '') as $category)
       <div class="category-swipe" id="{{ $category->slug }}" {{ $category->childs->count() ? 'is-parent' : '' }}>
 
         <div class="card-columns mx-3">
-          @foreach($category->products->merge($category->childs_products) as $product)
-            <div {{ ($category->slug == $initCategory->slug ? 'data-aos=fade-up' : '') }} id="{{ $product->id }}" class="card text-white text-center border-0 {{ ($product->category->parent?$product->category->parent->slug:'') }} {{ $product->category->slug }}">
-              <img class="card-img" src="{{ asset('storage'.$product->images) }}"/>
-              <!--<div class="card-img-overlay">
-                <h4 class="card-title font-weight-normal position-absolute fixed-bottom mb-0 py-2">
-                  {{ $product->title }}
-                </h4>
-              </div>-->
+          @foreach($category->products->take(10)->merge($category->childs_products) as $product)
+          @php
+          if(isset($usedCats[$product->category_id]))
+            $usedCats[$product->category_id]++;
+          else
+            $usedCats[$product->category_id] = 1;
+          if($usedCats[$product->category_id] >= 10)
+            continue;
+          @endphp
+            <div id="{{ $product->id }}" class="card text-white text-center border-0 {{ ($product->category->parent?$product->category->parent->slug:'') }} {{ $product->category->slug }} {{ ($category->slug == $initCategory->slug ? 'data-aos=fade-up' : '') }}">
+              <img class="card-img" src="{{ asset('storage/images/thumbs'.substr(json_decode($product->images)[0], 7)) }}"/>
             </div>
           @endforeach
         </div>
+
+        <!--<button data-page="1" class="load-more btn btn-outline-secondary col-12">Load more</button>-->
 
       </div>
       @endforeach
@@ -67,30 +75,6 @@
 
   @push('scripts')
     <script type="text/javascript">
-      // Init imagePopup modal plugin
-      $('.card').on('click', function(){
-        imagePopup($(this));
-      });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       // I am gonna just put this code right here
       // because i dont wanna run in on about us page
 
@@ -102,7 +86,8 @@
       4. Mainmenu links opens submenu
       5. Submenu navigation
       6. Init custom isotope grid
-      7. Submenu remove link .active on mainmenu link click if its has .dropdown and .active*/
+      7. Submenu remove link .active on mainmenu link click if its has .dropdown and .active
+      8. Init image popup plugin*/
 
       // 1. Swipe init and callback
       window.mySwipe = new Swipe(document.getElementById('mySwipe'), {
@@ -144,6 +129,9 @@
           $('.submenu-block:not([data-dropdown='+newCat+'])').slideUp();
           // Open sub menu if newly swiped cat has one
           $('.submenu .submenu-block[data-dropdown='+newCat+']').slideDown();
+
+          //make swipe-wrap element's height same as newCat category-swipe element's height
+          $('.swipe-wrap').css('height', $(elem).height());
         }
       });
 
@@ -171,7 +159,7 @@
         $('.submenu-block:not([data-dropdown='+cat+'])').slideUp();
         $('.submenu-block[data-dropdown='+cat+']').slideDown();
       });
-      //Submenu close
+      // Submenu close
       $('.mainmenu .nav-link:not(.dropdown-toggle)').on('click', function(){
         $('.submenu-block').slideUp();
       });
@@ -220,6 +208,41 @@
       $('.mainmenu').on('click', '.nav-item.dropdown.active .nav-link', function(){
         var cat = $(this).data('swipe');
         $('.nav.submenu [data-dropdown='+cat+'] .nav-item.active').removeClass('active');
+      });
+
+      // 8. Init imagePopup modal plugin
+      $('.card').on('click', function(){
+        imagePopup($(this));
+      });
+
+      // 9. Infinity scroll
+      /*var page = $('.load-more').data('page'); // Current page
+      $('.load-more').on('click', function(){
+
+        var cardColumn = $(this).parent().find('.card-columns');
+        var cat = $(this).parent().attr('id');
+        var button = $(this);
+
+        $.ajax({
+          type: 'POST',
+          url: '/ajax/load-more',
+          data: {
+            _token: $('meta[name="_token"]').attr('content'),
+            cat: cat,
+            page: page
+          },
+          success: function(data) {
+            page = page + 1;
+            button.attr('data-page', page);
+            cardColumn.prepend(data);
+          }
+        });
+
+      });*/
+
+      // 10. make swipe-wrap element's height same as newCat category-swipe element's height
+      $(window).on('load', function () {
+        $('.swipe-wrap').css('height', $('.category-swipe').eq(0).height());
       });
     </script>
   @endpush

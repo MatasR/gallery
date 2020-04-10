@@ -18,7 +18,10 @@ Route::get('autoriai', 'AppController@authors');
 Route::get('autorius/{id}', 'AppController@author');
 Route::get('apie-mus', 'AppController@about');
 
-Route::get('ajax/product/{id}', 'AjaxController@product');
+Route::get('ajax/modal/{id}', 'AjaxController@modal');
+Route::post('ajax/load-more', 'AjaxController@loadMore');
+
+Route::get('scrap/make-thumbs', 'ScrapController@makeThumbs');
 
 /*Route::get('scrap/products', 'ScrapController@getProducts');
 Route::get('scrap/import', 'ScrapController@import');

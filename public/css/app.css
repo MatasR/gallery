@@ -12267,10 +12267,25 @@ body .nav .nav-item .nav-link {
        column-gap: 0.75rem;
 }
 
+@media (min-width: 992px) {
+  .card-columns {
+    -moz-column-count: 4;
+         column-count: 4;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .card-columns {
+    -moz-column-count: 2;
+         column-count: 2;
+  }
+}
+
 .card-columns .card {
   cursor: pointer;
   border-radius: 1.25rem;
   overflow: hidden;
+  display: inline-flex;
 }
 
 .card-columns .card .card-img-overlay .card-title {
@@ -12289,20 +12304,6 @@ body .nav .nav-item .nav-link {
 
 #authors .card .card-body .card-title {
   font-size: 1.25rem;
-}
-
-@media (min-width: 992px) {
-  #authors .card-columns {
-    -moz-column-count: 4;
-         column-count: 4;
-  }
-}
-
-@media (max-width: 767.98px) {
-  #authors .card-columns {
-    -moz-column-count: 2;
-         column-count: 2;
-  }
 }
 
 #authors .card-columns .card .card-img-top {

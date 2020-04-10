@@ -4,17 +4,34 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Category;
 
 class AjaxController extends Controller
 {
+    // Infinite scroll pagination
+    public function loadMore(Request $request)
+    {
+
+      $category = Category::where('slug', $request->cat)->first();
+      $page = $request->page;
+      $perPage = 10;
+
+      return view('includes.cards')->with([
+        'category' => $category,
+        'page' => $page,
+        'perPage' => $perPage
+      ]);
+
+    }
+
     // Show card modal with more info about product
-    public function product(Request $request)
+    public function modal(Request $request)
     {
       $product = Product::find($request->id);
 
       return response()->json([
         'title' => $product->title,
-        'image' => asset('storage'.$product->images),
+        'image' => asset('storage'.json_decode($product->images)[0]),
         'description' => '',
         'category' => $product->category->title,
       ]);

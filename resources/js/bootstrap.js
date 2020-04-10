@@ -1,4 +1,4 @@
-window.$ = require('jquery');
+window.$ = window.jQuery = require('jquery');
 
 require('bootstrap');
 
@@ -15,6 +15,9 @@ require('./magicLine.js');
 
 // My custom modal plugin
 require('./imagePopup.js');
+
+// Inifinity scroll
+require('jscroll');
 
 //window._ = require('lodash');
 
