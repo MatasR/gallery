@@ -22,6 +22,7 @@
   // Insert new product data to modal html
   function insertData(data){
     $('.image-popup').find('h2').text(data.title);
+    $('.image-popup').find('p').text(data.short_desc);
     $('.image-popup').find('img').attr('src', data.image);
   }
 

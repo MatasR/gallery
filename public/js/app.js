@@ -18112,7 +18112,7 @@ Popper.Defaults = Defaults;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * Swipe 2.2.14
+ * Swipe 2.2.16
  *
  * Brad Birdsall
  * Copyright 2013, MIT License
@@ -18195,6 +18195,23 @@ Popper.Defaults = Defaults;
       if (!event) return false;
       return typeof event.cancelable !== 'boolean' || event.cancelable;
     };
+
+    // polyfill for browsers that do not support Element.matches()
+    if (!Element.prototype.matches) {
+      Element.prototype.matches =
+        Element.prototype.matchesSelector ||
+        Element.prototype.mozMatchesSelector ||
+        Element.prototype.msMatchesSelector ||
+        Element.prototype.oMatchesSelector ||
+        Element.prototype.webkitMatchesSelector ||
+        function (s) {
+          var matches = (this.document || this.ownerDocument).querySelectorAll(s),
+            i = matches.length;
+          while (--i >= 0 && matches.item(i) !== this)
+            ;
+          return i > -1;
+        };
+    }
 
     // check browser capabilities
     var browser = {
@@ -18292,6 +18309,11 @@ Popper.Defaults = Defaults;
           touches = event.touches[0];
         }
 
+        // check if the user is swiping on an element that the options say to ignore (for example, a scrolling area)
+        if (options.ignore && touches.target.matches(options.ignore)) {
+          return;
+        }
+
         // measure start values
         start = {
 
@@ -18319,7 +18341,7 @@ Popper.Defaults = Defaults;
           element.addEventListener('touchmove', this, browser.passiveEvents ? { passive: false } : false);
           element.addEventListener('touchend', this, false);
         }
-
+        runDragStart(getPos(), slides[index]);
       },
 
       move: function(event) {
@@ -18378,9 +18400,9 @@ Popper.Defaults = Defaults;
               ( (!index && delta.x > 0 ||             // if first slide and sliding left
                  index === slides.length - 1 &&        // or if last slide and sliding right
                  delta.x < 0                           // and if sliding at all
-                ) ?
-               ( Math.abs(delta.x) / width + 1 )      // determine resistance level
-               : 1 );                                 // no resistance if false
+              ) ?
+                ( Math.abs(delta.x) / width + 1 )      // determine resistance level
+                : 1 );                                 // no resistance if false
 
             // translate 1:1
             translate(index-1, delta.x + slidePos[index-1], 0);
@@ -18478,7 +18500,7 @@ Popper.Defaults = Defaults;
           element.removeEventListener('touchmove', events, browser.passiveEvents ? { passive: false } : false);
           element.removeEventListener('touchend', events, false);
         }
-
+        runDragEnd(getPos(), slides[index]);
       },
 
       transitionEnd: function(event) {
@@ -18705,6 +18727,18 @@ Popper.Defaults = Defaults;
     function runTransitionEnd(pos, index) {
       if (options.transitionEnd) {
         options.transitionEnd(pos, index);
+      }
+    }
+
+    function runDragStart(pos, index) {
+      if (options.dragStart) {
+        options.dragStart(pos, index);
+      }
+    }
+
+    function runDragEnd(pos, index) {
+      if (options.dragEnd) {
+        options.dragEnd(pos, index);
       }
     }
 
@@ -19084,6 +19118,7 @@ __webpack_require__(/*! jscroll */ "./node_modules/jscroll/jquery.jscroll.js"); 
 
   function insertData(data) {
     $('.image-popup').find('h2').text(data.title);
+    $('.image-popup').find('p').text(data.short_desc);
     $('.image-popup').find('img').attr('src', data.image);
   } // On same click make that the modal image would be at the same position as card image for a very nice transition effect
 
