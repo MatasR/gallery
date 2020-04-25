@@ -12254,6 +12254,10 @@ body {
   /* Margin bottom by footer height */
 }
 
+body .nav .nav-item.active .nav-link {
+  color: #000 !important;
+}
+
 body .nav .nav-item .nav-link {
   font-size: 13px;
   font-weight: 600;

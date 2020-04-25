@@ -134,15 +134,17 @@ body {
   margin-bottom: 54px; /* Margin bottom by footer height */
   .nav {
     .nav-item {
+      &.active {
+        .nav-link {
+          color: #000 !important;
+        }
+      }
       .nav-link {
         font-size: 13px;
         font-weight: 600;
         letter-spacing: .09rem;
         text-transform: uppercase;
         padding: 0.5rem 0.9rem;
-        &.active {
-
-        }
       }
     }
   }

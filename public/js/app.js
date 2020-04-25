@@ -18112,7 +18112,7 @@ Popper.Defaults = Defaults;
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
- * Swipe 2.2.16
+ * Swipe 2.2.14
  *
  * Brad Birdsall
  * Copyright 2013, MIT License
@@ -18195,23 +18195,6 @@ Popper.Defaults = Defaults;
       if (!event) return false;
       return typeof event.cancelable !== 'boolean' || event.cancelable;
     };
-
-    // polyfill for browsers that do not support Element.matches()
-    if (!Element.prototype.matches) {
-      Element.prototype.matches =
-        Element.prototype.matchesSelector ||
-        Element.prototype.mozMatchesSelector ||
-        Element.prototype.msMatchesSelector ||
-        Element.prototype.oMatchesSelector ||
-        Element.prototype.webkitMatchesSelector ||
-        function (s) {
-          var matches = (this.document || this.ownerDocument).querySelectorAll(s),
-            i = matches.length;
-          while (--i >= 0 && matches.item(i) !== this)
-            ;
-          return i > -1;
-        };
-    }
 
     // check browser capabilities
     var browser = {
@@ -18309,11 +18292,6 @@ Popper.Defaults = Defaults;
           touches = event.touches[0];
         }
 
-        // check if the user is swiping on an element that the options say to ignore (for example, a scrolling area)
-        if (options.ignore && touches.target.matches(options.ignore)) {
-          return;
-        }
-
         // measure start values
         start = {
 
@@ -18341,7 +18319,7 @@ Popper.Defaults = Defaults;
           element.addEventListener('touchmove', this, browser.passiveEvents ? { passive: false } : false);
           element.addEventListener('touchend', this, false);
         }
-        runDragStart(getPos(), slides[index]);
+
       },
 
       move: function(event) {
@@ -18400,9 +18378,9 @@ Popper.Defaults = Defaults;
               ( (!index && delta.x > 0 ||             // if first slide and sliding left
                  index === slides.length - 1 &&        // or if last slide and sliding right
                  delta.x < 0                           // and if sliding at all
-              ) ?
-                ( Math.abs(delta.x) / width + 1 )      // determine resistance level
-                : 1 );                                 // no resistance if false
+                ) ?
+               ( Math.abs(delta.x) / width + 1 )      // determine resistance level
+               : 1 );                                 // no resistance if false
 
             // translate 1:1
             translate(index-1, delta.x + slidePos[index-1], 0);
@@ -18500,7 +18478,7 @@ Popper.Defaults = Defaults;
           element.removeEventListener('touchmove', events, browser.passiveEvents ? { passive: false } : false);
           element.removeEventListener('touchend', events, false);
         }
-        runDragEnd(getPos(), slides[index]);
+
       },
 
       transitionEnd: function(event) {
@@ -18727,18 +18705,6 @@ Popper.Defaults = Defaults;
     function runTransitionEnd(pos, index) {
       if (options.transitionEnd) {
         options.transitionEnd(pos, index);
-      }
-    }
-
-    function runDragStart(pos, index) {
-      if (options.dragStart) {
-        options.dragStart(pos, index);
-      }
-    }
-
-    function runDragEnd(pos, index) {
-      if (options.dragEnd) {
-        options.dragEnd(pos, index);
       }
     }
 
@@ -19071,7 +19037,7 @@ __webpack_require__(/*! jscroll */ "./node_modules/jscroll/jquery.jscroll.js"); 
 (function () {
   $.fn.customIsotope = function (text) {
     var grid = $(this);
-    var cat = $(this).attr('id'); // Hide all except filter
+    var cat = $(this).data('id'); // Hide all except filter
 
     $('.submenu-block[data-dropdown=' + cat + ']').on('click', '[data-filter]', function () {
       var filter = $(this).data('filter');

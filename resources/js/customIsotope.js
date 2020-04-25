@@ -3,7 +3,7 @@
   $.fn.customIsotope = function(text){
 
     var grid = $(this);
-    var cat = $(this).attr('id');
+    var cat = $(this).data('id');
 
     // Hide all except filter
     $('.submenu-block[data-dropdown='+cat+']').on('click', '[data-filter]', function(){

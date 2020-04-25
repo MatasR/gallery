@@ -8,13 +8,13 @@
     @foreach(App\Category::get()->where('parent_id', '') as $category)
       @if($category->childs->count())
         <li class="nav-item dropdown {{ ($category->slug == $initCategory->slug ? 'active' : '') }}">
-          <a class="nav-link text-secondary dropdown-toggle" href="#" data-swipe="{{ $category->slug }}">
+          <a class="nav-link text-secondary dropdown-toggle" href="#{{ $category->slug }}" data-swipe="{{ $category->slug }}">
             {{ $category->title }}
           </a>
         </li>
       @else
         <li class="nav-item {{ ($category->slug == $initCategory->slug ? 'active' : '') }}">
-          <a class="nav-link text-secondary" href="#" data-swipe="{{ $category->slug }}">{{ $category->title }}</a>
+          <a class="nav-link text-secondary" href="#{{ $category->slug }}" data-swipe="{{ $category->slug }}">{{ $category->title }}</a>
         </li>
       @endif
     @endforeach
@@ -26,7 +26,7 @@
         <div class="submenu-block position-relative" data-dropdown="{{ $category->slug }}">
           @foreach($category->childs as $child)
             <li class="nav-item d-inline-block" data-filter="{{ $child->slug }}">
-              <a class="nav-link text-secondary" href="#">
+              <a class="nav-link text-secondary" href="#{{ $category->slug }}-{{ $child->slug }}">
                 {{ $child->title }}
               </a>
             </li>
@@ -44,7 +44,7 @@
       $usedCats = array();
       @endphp
       @foreach(App\Category::with('products', 'childs_products')->get()->where('parent_id', '') as $category)
-      <div class="category-swipe" id="{{ $category->slug }}" {{ $category->childs->count() ? 'is-parent' : '' }}>
+      <div class="category-swipe" data-id="{{ $category->slug }}" {{ $category->childs->count() ? 'is-parent' : '' }}>
 
         <div class="card-columns mx-3">
           @foreach($category->products->take(10)->merge($category->childs_products) as $product)
@@ -93,7 +93,7 @@
       window.mySwipe = new Swipe(document.getElementById('mySwipe'), {
         draggable: true,
         callback: function(index, elem, dir){
-          var newCat = $(elem).attr('id');
+          var newCat = $(elem).data('id');
 
           // Scroll nav-x-scroll navigation to newCat
           curLi = $(elem).parent();
@@ -130,8 +130,11 @@
           // Open sub menu if newly swiped cat has one
           $('.submenu .submenu-block[data-dropdown='+newCat+']').slideDown();
 
-          //make swipe-wrap element's height same as newCat category-swipe element's height
+          // make swipe-wrap element's height same as newCat category-swipe element's height
           $('.swipe-wrap').css('height', $(elem).height());
+
+          // Change hashlink to new cat after swipe
+          location.hash = newCat;
         }
       });
 
@@ -141,7 +144,7 @@
         // Get clicked cat slug
         newCat = $(this).data('swipe');
         // Count cat card index in swipe-wrap
-        cardIndex = $('.swipe-wrap .category-swipe#'+newCat).index();
+        cardIndex = $('.swipe-wrap .category-swipe[data-id='+newCat+']').index();
         // Slide swipejs
         window.mySwipe.slide(cardIndex, 400);
       });
@@ -244,6 +247,46 @@
       $(window).on('load', function () {
         $('.swipe-wrap').css('height', $('.category-swipe').eq(0).height());
       });
+
+      // 11. Url hash navigation
+      $(window).on('hashchange', onHashchange);
+      function getHashFilter() {
+        // get filter=filterName
+        var matches = location.hash.match( /([^&]+)/i );
+        var hashFilter = matches && matches[1];
+        return hashFilter && decodeURIComponent( hashFilter );
+      }
+      function onHashchange() {
+        var hashFilter = getHashFilter();
+        if (!hashFilter) {
+          // Swipe to first card-collumn
+          window.mySwipe.slide(0, 400);
+          return;
+        }
+
+        if($('.nav .nav-link[href="'+hashFilter+'"]').parent().hasClass('d-inline-block')){
+          // it means it is sub menu
+          // then open main menu item before opening sub menu
+          // get parent cat from hash filter
+          //alert('Parent detected!');
+          var parentCat = hashFilter.split('-')[0];
+          // 1. Open dropdown
+          $('.submenu-block:not([data-dropdown='+parentCat.substr(1)+'])').slideUp();
+          $('.submenu-block[data-dropdown='+parentCat.substr(1)+']').slideDown();
+          // 2. Make parent .active
+          // Slide magicLine to new position
+          $('.nav.mainmenu .nav-item.active').removeClass('active');
+          // Assign active class to new cat for magicLine
+          $('.nav .nav-item [data-swipe='+parentCat.substr(1)+']').closest('.nav-item').addClass('active');
+          // Slide magicLine to the new swiped cat
+          mainMagicLine.refresh();
+          //$('.nav .nav-link[href="'+parentCat+'"]').click();// Netinka, nes pakeicia hash url
+          //alert('Parent class: '+parentCat);
+        }
+
+        // Open exact menu item as hashtag, it can be in main menu or sub menu
+        $('.nav .nav-link[href="'+hashFilter+'"]').click();
+      }
     </script>
   @endpush
 
