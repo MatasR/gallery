@@ -45,25 +45,18 @@
     <div class="row">
       <!-- Products -->
 
-      <!-- Swipe stuff -->
-      <div id="mySwipe" class="swipe mt-3">
-        <div class="swipe-wrap">
-          @foreach($author->categories->unique() as $category)
-          <div class="category-swipe" id="{{ $category->slug }}">
+      @foreach($author->categories->unique() as $category)
 
-            <!-- Product cards -->
-            <div class="card-columns mx-3">
-              @foreach($author->products as $product)
-                <div class="card" data-aos="fade-up" id="{{ $product->id }}">
-                  <img class="card-img" src="{{ asset('storage/images/thumbs'.substr(json_decode($product->images)[0], 7)) }}"/>
-                </div>
-              @endforeach
+        <!-- Product cards -->
+        <div class="card-columns mx-3 mt-3">
+          @foreach($author->products as $product)
+            <div class="card" data-aos="fade-up" id="{{ $product->id }}">
+              <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
             </div>
-
-          </div>
           @endforeach
         </div>
-      </div>
+
+      @endforeach
 
     </div>
 
@@ -73,53 +66,6 @@
 
   @push('scripts')
     <script type="text/javascript">
-      // 1. Swipe init and callback
-      window.mySwipe = new Swipe(document.getElementById('mySwipe'), {
-        draggable: true,
-        callback: function(index, elem, dir){
-          var newCat = $(elem).attr('id');
-
-          // Scroll nav-x-scroll navigation to newCat
-          curLi = $(elem).parent();
-          newLi = $('.nav-x-scroll').find('[data-swipe='+newCat+']').parent();
-
-          newX = newLi.offset().left - curLi.offset().left;
-
-          curScrollX = $('.nav-x-scroll').scrollLeft();
-          newScrollX = newX + curScrollX;
-
-          // Remove half nav width
-          newScrollX -= $('.nav-x-scroll').width() / 2;
-
-          // Add half li width
-          newScrollX += newLi.width() / 2;
-
-          // Substract padding left
-          newScrollX -= 16;
-
-          // Excecute the scrolling
-          $('.nav-x-scroll').animate({
-            scrollLeft: newScrollX + 'px'
-          }, 300);
-
-          // Slide magicLine to new position
-          $('.nav.mainmenu .nav-item.active').removeClass('active');
-          // Assign active class to new cat for magicLine
-          $('.nav .nav-item [data-swipe='+newCat+']').closest('.nav-item').addClass('active');
-          // Slide magicLine to the new swiped cat
-          mainMagicLine.refresh();
-
-          // Close all opened submenus(except current)
-          $('.submenu-block:not([data-dropdown='+newCat+'])').slideUp();
-          // Open sub menu if newly swiped cat has one
-          $('.submenu .submenu-block[data-dropdown='+newCat+']').slideDown();
-        }
-      });
-      // 3. MagicLine init
-      // Init magicLine when page fully loaded to get exact position to appear
-      $(window).on('load', function () {
-        mainMagicLine = new MagicLine($('.mainmenu'));
-      });
       // 8. Init imagePopup modal plugin
       $('.card').on('click', function(){
         imagePopup($(this));

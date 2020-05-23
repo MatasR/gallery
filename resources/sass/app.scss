@@ -79,17 +79,17 @@ $enable-responsive-font-sizes: true;
 }
 
 //Magic line
-.magic-line{
+/*.magic-line{
   width: 100px;
   height: 2px;
   position: absolute;
   bottom: 0px;
   left: 0;
   background: #eee;
-}
+}*/
 
 //Navigation X scroll
-.nav-x-scroll {
+/*.nav-x-scroll {
   white-space: nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -101,10 +101,10 @@ $enable-responsive-font-sizes: true;
   li {
     display: inline-block;
   }
-}
+}*/
 
 //Submenu
-.nav.submenu {
+/*.nav.submenu {
   .submenu-block {
     display: none;
     .nav-item {
@@ -125,7 +125,7 @@ $enable-responsive-font-sizes: true;
       }
     }
   }
-}
+}*/
 html {
   position: relative;
   min-height: 100%;
@@ -135,6 +135,7 @@ body {
   .nav {
     .nav-item {
       &.active {
+        border-bottom: 1px solid #ccc;
         .nav-link {
           color: #000 !important;
         }

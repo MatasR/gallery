@@ -10,25 +10,72 @@ use App\Category;
 use App\Product;
 use App\Author;
 use Intervention\Image\ImageManagerStatic as Image;
+use TCG\Voyager\Facades\Voyager;
 
 class ScrapController extends Controller
 {
+
+    public function convertName(){
+
+      $products = Product::get();
+      foreach ($products as $product){
+
+        $image = json_decode($product->image)[0];
+
+        $table = array(
+          'Ą'=>'A',
+          'ą'=>'a',
+          'Č'=>'C',
+          'č'=>'c',
+          'Ę'=>'E',
+          'ę'=>'e',
+          'Ė'=>'E',
+          'ė'=>'e',
+          'Į'=>'I',
+          'į'=>'i',
+          'Š'=>'S',
+          'š'=>'s',
+          'Ū'=>'U',
+          'ū'=>'u',
+          'Ų'=>'U',
+          'ų'=>'u',
+          'Ž'=>'Z',
+          'ž'=>'z'
+        );
+
+        $newName = strtr($image, $table);
+
+        echo $image.' -> '.$newName.'<br>';
+
+        rename(storage_path('app/public'.$image), storage_path('app/public'.$newName));
+
+        $product->image = '["'.$newName.'"]';
+        $product->save();
+
+      }
+
+    }
 
     public function makeThumbs(){
       $products = Product::get();
       foreach ($products as $product){
 
-        $currentImage = storage_path('app/public'.json_decode($product->images)[0]);
+        $currentImage = Voyager::image(json_decode($product->image)[0]);
+
+        echo $product->id.'. '.$currentImage.'<br>';
 
         $filename = last(explode("/", $currentImage));
+        $newName = substr($filename, 0, -4).'-thumb-300.jpg';
 
-        //dd(storage_path('app/public/images/April2020/thumbs/'.$filename));
+        //Check if thumb exists
+        if(file_exists(storage_path('app/public/products/May2020/'.$newName)))
+          continue;
 
         $newImage = Image::make($currentImage);
         $newImage->resize(300, null, function ($constraint) {
           $constraint->aspectRatio();
         });
-        $newImage->save(storage_path('app/public/images/thumbs/April2020/'.$filename));
+        $newImage->save(storage_path('app/public/products/May2020/'.$newName));
 
       }
     }

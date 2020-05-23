@@ -4,20 +4,20 @@ require('bootstrap');
 
 window.AOS = require('aos');
 
-window.Swipe = require('swipejs');
+//window.Swipe = require('swipejs');
 
 // My custom isotope plugin
 // Reason is that it crashes with BS card-columns
-require('./customIsotope.js');
+//require('./customIsotope.js');
 
 // My custom magicLine plugin
-require('./magicLine.js');
+//require('./magicLine.js');
 
 // My custom modal plugin
 require('./imagePopup.js');
 
 // Inifinity scroll
-require('jscroll');
+//require('jscroll');
 
 //window._ = require('lodash');
 

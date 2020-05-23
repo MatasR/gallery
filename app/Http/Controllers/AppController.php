@@ -13,7 +13,24 @@ class AppController extends Controller
       $initCategory = Category::whereNull('parent_id')->inRandomOrder()->first();
       $initCategory = Category::find(1);
 
-      return view('pages.home')->with('initCategory', $initCategory);
+      $products = $initCategory->products()->simplePaginate(15);
+
+      return view('pages.index', compact('initCategory', 'products'));
+
+    }
+
+    public function category(Request $request){
+
+      if($request->subcat)
+        $cat = $request->subcat;
+      else
+        $cat = $request->cat;
+
+      $initCategory = Category::where('slug', $cat)->orderBy('parent_id', 'desc')->first();
+
+      $products = $initCategory->products()->simplePaginate(15);
+
+      return view('pages.index', compact('initCategory', 'products'));
 
     }
 

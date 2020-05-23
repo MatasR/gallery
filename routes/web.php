@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'AppController@home');
+
+Route::group(['prefix' => 'admin'], function () {
+    Voyager::routes();
+});
+
 Route::get('autoriai', 'AppController@authors');
 Route::get('autorius/{id}', 'AppController@author');
 Route::get('apie-mus', 'AppController@about');
@@ -21,7 +26,11 @@ Route::get('apie-mus', 'AppController@about');
 Route::get('ajax/modal/{id}', 'AjaxController@modal');
 Route::post('ajax/load-more', 'AjaxController@loadMore');
 
+Route::get('{cat}', 'AppController@category');
+Route::get('{cat}/{subcat}', 'AppController@category');
+
 Route::get('scrap/make-thumbs', 'ScrapController@makeThumbs');
+Route::get('scrap/convert-name', 'ScrapController@convertName');
 
 /*Route::get('scrap/products', 'ScrapController@getProducts');
 Route::get('scrap/import', 'ScrapController@import');
@@ -31,8 +40,4 @@ Route::get('scrap/importauthorproducts','ScrapController@importAuthorProducts');
 
 Route::get('/welcome', function () {
     return view('welcome');
-});
-
-Route::group(['prefix' => 'admin'], function () {
-    Voyager::routes();
 });
