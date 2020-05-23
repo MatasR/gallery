@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Category;
+use TCG\Voyager\Facades\Voyager;
 
 class AjaxController extends Controller
 {
@@ -32,7 +33,7 @@ class AjaxController extends Controller
       return response()->json([
         'title' => $product->title,
         'short_desc' => $product->short_desc,
-        'image' => asset('storage'.json_decode($product->image)[0]),
+        'image' => Voyager::image(json_decode($product->image)[0]),
         'description' => '',
         'category' => $product->category->title,
       ]);
