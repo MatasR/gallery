@@ -10,12 +10,16 @@
       </div>
 
       <div class="modal-body">
-        <h2 class="mb-0 d-inline-block"></h2>
-        <p class="mb-0"></p>
+        <h2 class="mb-0 d-inline-block w-100"></h2>
+        <a href="#" id="author" class="text-secondary mb-0"></a>
+        <p id="desc" class="mb-0"></p>
       </div>
 
       <div class="modal-footer border-0 pt-0 justify-content-start">
         <a href="/apie-mus" type="button" class="btn btn-secondary rounded-pill">Kreiptis</a>
+        @if (Auth::user() && Auth::user()->hasRole('admin'))
+          <a href="#" type="button" target="_blank" id="edit" class="btn btn-info rounded-pill">Redaguoti</a>
+        @endif
       </div>
 
     </div>

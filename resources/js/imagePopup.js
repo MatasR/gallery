@@ -22,8 +22,13 @@
   // Insert new product data to modal html
   function insertData(data){
     $('.image-popup').find('h2').text(data.title);
-    $('.image-popup').find('p').text(data.short_desc);
+    $('.image-popup').find('p#desc').text(data.short_desc);
+    if(data.author)
+      $('.image-popup').find('a#author').attr('href', '/autorius/'+data.author.id).text(data.author.name);
+    else
+      $('.image-popup').find('a#author').text('');
     $('.image-popup').find('img').attr('src', data.image);
+    $('.image-popup').find('.btn#edit').attr('href', '/admin/products/'+data.id+'/edit')
   }
 
   // On same click make that the modal image would be at the same position as card image for a very nice transition effect

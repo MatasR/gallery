@@ -31,8 +31,13 @@ class AjaxController extends Controller
       $product = Product::find($request->id);
 
       return response()->json([
+        'id' => $product->id,
         'title' => $product->title,
         'short_desc' => $product->short_desc,
+        'author' => ($product->author?[
+          'name' => $product->author->name,
+          'id' => $product->author->id
+        ]:false),
         'image' => Voyager::image(json_decode($product->image)[0]),
         'description' => '',
         'category' => $product->category->title,
