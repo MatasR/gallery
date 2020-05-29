@@ -7037,17 +7037,17 @@
     },
     {
         "name": "tcg/voyager",
-        "version": "1.x-dev",
-        "version_normalized": "1.9999999.9999999.9999999-dev",
+        "version": "v1.4.1",
+        "version_normalized": "1.4.1.0",
         "source": {
             "type": "git",
             "url": "https://github.com/the-control-group/voyager.git",
-            "reference": "726cb098c4796878237f083be1da7cd80334bf67"
+            "reference": "f4e6775364a00716a85b8f0fdfe729df68a47913"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/the-control-group/voyager/zipball/726cb098c4796878237f083be1da7cd80334bf67",
-            "reference": "726cb098c4796878237f083be1da7cd80334bf67",
+            "url": "https://api.github.com/repos/the-control-group/voyager/zipball/f4e6775364a00716a85b8f0fdfe729df68a47913",
+            "reference": "f4e6775364a00716a85b8f0fdfe729df68a47913",
             "shasum": ""
         },
         "require": {
@@ -7069,7 +7069,7 @@
             "phpunit/phpcov": ">=6.0",
             "phpunit/phpunit": ">=8.0"
         },
-        "time": "2020-03-10T15:28:49+00:00",
+        "time": "2020-04-14T17:47:19+00:00",
         "type": "library",
         "extra": {
             "laravel": {
