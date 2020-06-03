@@ -26,10 +26,11 @@ Route::get('apie-mus', 'AppController@about');
 Route::get('ajax/modal/{id}', 'AjaxController@modal');
 Route::post('ajax/load-more', 'AjaxController@loadMore');
 
+Route::get('scrap/make-slugs', 'ScrapController@makeSlugs');
+
 Route::get('{cat}', 'AppController@category');
 Route::get('{cat}/{product}', 'AppController@product');
 
-Route::get('scrap/make-slugs', 'ScrapController@makeSlugs');
 /*Route::get('scrap/make-thumbs', 'ScrapController@makeThumbs');
 Route::get('scrap/convert-name', 'ScrapController@convertName');
 Route::get('scrap/products', 'ScrapController@getProducts');
