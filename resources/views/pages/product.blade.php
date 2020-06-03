@@ -20,7 +20,7 @@
     @if($product->author)
       <div class="row mb-3">
         <div class="col-12">
-          <a href="/autorius/{{ $product->author->slug }}" class="text-secondary">Autorius Autorelis</a>
+          <a href="/autorius/{{ $product->author->slug }}" class="text-secondary">{{ $product->author->name }}</a>
         </div>
       </div>
     @endif
