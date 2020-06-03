@@ -50,9 +50,11 @@
         <!-- Product cards -->
         <div class="card-columns mx-3 mt-3">
           @foreach($author->products as $product)
-            <div class="card" data-aos="fade-up" id="{{ $product->id }}">
-              <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
-            </div>
+            <a href="/{{ $initCategory->slug }}/{{ $product->slug }}">
+              <div class="card" data-aos="fade-up" id="{{ $product->id }}">
+                <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
+              </div>
+            </a>
           @endforeach
         </div>
 

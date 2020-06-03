@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Category;
 use App\Author;
+use App\Product;
 
 class AppController extends Controller
 {
@@ -19,18 +20,24 @@ class AppController extends Controller
 
     }
 
-    public function category(Request $request){
+    public function category(Category $cat){
 
-      if($request->subcat)
-        $cat = $request->subcat;
-      else
-        $cat = $request->cat;
+      $initCategory = $cat;
 
-      $initCategory = Category::where('slug', $cat)->orderBy('parent_id', 'desc')->first();
+      // Check if there is child cat with the same slug
+      // and select it if present
+      if($cat->childs->where('slug', $cat->slug)->first())
+        $initCategory = $cat->childs->where('slug', $cat->slug)->first();
 
       $products = $initCategory->products()->simplePaginate(15);
 
       return view('pages.index', compact('initCategory', 'products'));
+
+    }
+
+    public function product(Category $cat, Product $product){
+
+      return view('pages.product', compact('cat', 'product'));
 
     }
 
@@ -40,9 +47,8 @@ class AppController extends Controller
 
     }
 
-    public function author(Request $request){
+    public function author(Author $author){
 
-      $author = Author::find($request->id);
       $initCategory = $author->categories->unique()->first();
 
       return view('pages.author')->with([

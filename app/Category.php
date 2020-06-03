@@ -14,6 +14,7 @@ class Category extends Model
   public function childs(){
     return $this->hasMany(Category::class, 'parent_id');
   }
+
   //Returns parent category
   public function parent(){
     return $this->belongsTo(Category::class);
@@ -25,5 +26,15 @@ class Category extends Model
   //Return childrens products
   public function childs_products(){
     return $this->hasManyThrough(Product::class, Category::class, 'parent_id');
+  }
+
+  /**
+   * Get the route key for the model.
+   *
+   * @return string
+   */
+  public function getRouteKeyName()
+  {
+      return 'slug';
   }
 }

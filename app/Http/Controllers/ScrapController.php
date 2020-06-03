@@ -15,6 +15,24 @@ use TCG\Voyager\Facades\Voyager;
 class ScrapController extends Controller
 {
 
+    public function makeSlugs(){
+
+      $products = Product::get();
+      foreach ($products as $product) {
+
+        //if(!$product->slug){
+          $product->slug = $product->id.'-'.Str::slug($product->title, '-');
+          $product->save();
+
+          echo $product->id.'.'.$product->title.' -> '.$product->slug.'<br>';
+        //}
+
+        //echo $product->id.'.'.$product->title.' = '.$product->slug.'<br>';
+
+      }
+
+    }
+
     public function convertName(){
 
       $products = Product::get();

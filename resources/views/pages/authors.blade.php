@@ -31,7 +31,7 @@
         <div class="card border-0" data-search="{{ $author->name }}">
           <img class="card-img-top" src="{{ asset('storage/'.$author->img) }}" alt="">
           <div class="card-body p-2">
-            <a href="{{ url('/autorius/'.$author->id) }}" class="text-secondary stretched-link">
+            <a href="{{ url('/autorius/'.$author->slug) }}" class="text-secondary stretched-link">
               <h4 class="card-title mb-0">
                 {{ strtoupper($author->name) }}
               </h4>

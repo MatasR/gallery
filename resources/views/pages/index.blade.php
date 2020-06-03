@@ -13,7 +13,7 @@
           </a>
           <div class="dropdown-menu">
             @foreach($category->childs as $child)
-              <a class="dropdown-item {{ ($child->slug == $initCategory->slug ? 'active' : '') }}" href="/{{ $category->slug }}/{{ $child->slug }}">
+              <a class="dropdown-item {{ ($child->slug == $initCategory->slug ? 'active' : '') }}" href="/{{ $child->slug }}">
                 {{ $child->title }}
               </a>
             @endforeach
@@ -49,9 +49,11 @@
     {{-- @foreach($initCategory->products->merge($initCategory->childs_products) as $product) --}}
     {{-- https://stackoverflow.com/questions/30420505/how-can-i-paginate-a-merged-collection-in-laravel-5 --}}
     @foreach($products as $product)
-      <div id="{{ $product->id }}" class="card text-white text-center border-0">
-        <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
-      </div>
+      <a href="/{{ $initCategory->slug }}/{{ $product->slug }}">
+        <div id="{{ $product->id }}" class="card text-white text-center border-0">
+          <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
+        </div>
+      </a>
     @endforeach
   </div>
 

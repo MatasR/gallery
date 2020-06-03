@@ -4,6 +4,8 @@ require('bootstrap');
 
 window.AOS = require('aos');
 
+window.Drift = require('drift-zoom').default;
+
 //window.Swipe = require('swipejs');
 
 // My custom isotope plugin
