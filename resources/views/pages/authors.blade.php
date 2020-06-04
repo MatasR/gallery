@@ -3,19 +3,6 @@
 
 <div id="authors" class="container">
 
-  <!--<div class="card-columns">
-    @foreach(App\Author::get() as $author)
-      <div class="card border-0">
-        <img class="card-img-top" src="{{ asset('storage/'.$author->img) }}" alt="">
-        <div class="card-body p-2">
-          <h4 class="card-title mb-0">
-            {{ $author->name }}
-          </h4>
-        </div>
-      </div>
-    @endforeach
-  </div>-->
-
   <div class="row" id="search">
     <div class="container mb-2">
       <input class="form-control" type="text" placeholder="Paieška...">

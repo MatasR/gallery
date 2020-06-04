@@ -64,14 +64,9 @@
 
   </div>
 
-  @include('includes.popup')
-
   @push('scripts')
     <script type="text/javascript">
-      // 8. Init imagePopup modal plugin
-      $('.card').on('click', function(){
-        imagePopup($(this));
-      });
+
     </script>
   @endpush
 
