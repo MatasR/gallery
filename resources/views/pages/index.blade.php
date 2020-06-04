@@ -1,26 +1,28 @@
 @extends('layouts.default')
 @section('content')
 
+@php ( isset($initCategory) ? $cat = $initCategory : '' )
+
 <div id="home" class="container p-0">
 
   <!-- Main category navigation -->
   <ul class="nav mainmenu position-relative justify-content-center mx-3">
     @foreach(App\Category::get()->where('parent_id', '') as $category)
       @if($category->childs->count())
-      <li class="nav-item dropdown {{ ($category->slug == $initCategory->slug || $category->childs->where('slug', $initCategory->slug)->count() ? 'active' : '') }}">
+      <li class="nav-item dropdown {{ ($category->slug == $cat->slug || $category->childs->where('slug', $cat->slug)->count() ? 'active' : '') }}">
           <a class="nav-link dropdown-toggle text-secondary"  data-toggle="dropdown" href="#">
             {{ $category->title }}
           </a>
           <div class="dropdown-menu">
             @foreach($category->childs as $child)
-              <a class="dropdown-item {{ ($child->slug == $initCategory->slug ? 'active' : '') }}" href="/{{ $child->slug }}">
+              <a class="dropdown-item {{ ($child->slug == $cat->slug ? 'active' : '') }}" href="/{{ $child->slug }}">
                 {{ $child->title }}
               </a>
             @endforeach
           </div>
         </li>
       @else
-        <li class="nav-item {{ ($category->slug == $initCategory->slug ? 'active' : '') }}">
+        <li class="nav-item {{ ($category->slug == $cat->slug ? 'active' : '') }}">
           <a class="nav-link text-secondary" href="/{{ $category->slug }}">{{ $category->title }}</a>
         </li>
       @endif
@@ -49,7 +51,7 @@
     {{-- @foreach($initCategory->products->merge($initCategory->childs_products) as $product) --}}
     {{-- https://stackoverflow.com/questions/30420505/how-can-i-paginate-a-merged-collection-in-laravel-5 --}}
     @foreach($products as $product)
-      <a href="/{{ $initCategory->slug }}/{{ $product->slug }}">
+      <a href="/{{ $cat->slug }}/{{ $product->slug }}">
         <div id="{{ $product->id }}" class="card text-white text-center border-0">
           <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
         </div>

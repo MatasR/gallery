@@ -166,6 +166,7 @@ class ComposerStaticInit61a24bc83ee734c88eb10593aa815090
             'Doctrine\\Common\\Cache\\' => 22,
             'Doctrine\\Common\\' => 16,
             'DeepCopy\\' => 9,
+            'Davmixcool\\MetaManager\\' => 23,
         ),
         'C' => 
         array (
@@ -515,6 +516,10 @@ class ComposerStaticInit61a24bc83ee734c88eb10593aa815090
         'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
+        ),
+        'Davmixcool\\MetaManager\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/davmixcool/laravel-meta-manager/src',
         ),
         'Cron\\' => 
         array (
@@ -934,6 +939,7 @@ class ComposerStaticInit61a24bc83ee734c88eb10593aa815090
         'DataRowsTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DataRowsTableSeeder.php',
         'DataTypesTableSeeder' => __DIR__ . '/../..' . '/database/seeds/DataTypesTableSeeder.php',
         'DatabaseSeeder' => __DIR__ . '/../..' . '/database/seeds/DatabaseSeeder.php',
+        'Davmixcool\\MetaManager\\MetaServiceProvider' => __DIR__ . '/..' . '/davmixcool/laravel-meta-manager/src/MetaServiceProvider.php',
         'DeepCopy\\DeepCopy' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
         'DeepCopy\\Exception\\CloneException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
         'DeepCopy\\Exception\\PropertyException' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',

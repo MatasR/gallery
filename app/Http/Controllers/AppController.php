@@ -22,28 +22,32 @@ class AppController extends Controller
 
     public function category(Category $cat){
 
-      $initCategory = $cat;
-
       // Check if there is child cat with the same slug
       // and select it if present
       if($cat->childs->where('slug', $cat->slug)->first())
-        $initCategory = $cat->childs->where('slug', $cat->slug)->first();
+        $cat = $cat->childs->where('slug', $cat->slug)->first();
 
-      $products = $initCategory->products()->simplePaginate(15);
+      $products = $cat->products()->simplePaginate(15);
 
-      return view('pages.index', compact('initCategory', 'products'));
+      $pageTitle = $cat->title;
+
+      return view('pages.index', compact('cat', 'products', 'pageTitle'));
 
     }
 
     public function product(Category $cat, Product $product){
 
-      return view('pages.product', compact('cat', 'product'));
+      $pageTitle = $product->title;
+
+      return view('pages.product', compact('cat', 'product', 'pageTitle'));
 
     }
 
     public function authors(){
 
-      return view('pages.authors');
+      $pageTitle = 'Autoriai';
+
+      return view('pages.authors', compact('pageTitle'));
 
     }
 
@@ -51,16 +55,17 @@ class AppController extends Controller
 
       $initCategory = $author->categories->unique()->first();
 
-      return view('pages.author')->with([
-        'author' => $author,
-        'initCategory' => $initCategory
-      ]);
+      $pageTitle = $author->name;
+
+      return view('pages.author', compact('author', 'initCategory', 'pageTitle'));
 
     }
 
     public function about(){
 
-      return view('pages.about');
+      $pageTitle = 'Apie mus';
+
+      return view('pages.about', compact('pageTitle'));
 
     }
 }

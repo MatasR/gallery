@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Intervention\Image\ImageServiceProvider::class,
+        Davmixcool\MetaManager\MetaServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -360,6 +360,7 @@ return array(
     'DataRowsTableSeeder' => $baseDir . '/database/seeds/DataRowsTableSeeder.php',
     'DataTypesTableSeeder' => $baseDir . '/database/seeds/DataTypesTableSeeder.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
+    'Davmixcool\\MetaManager\\MetaServiceProvider' => $vendorDir . '/davmixcool/laravel-meta-manager/src/MetaServiceProvider.php',
     'DeepCopy\\DeepCopy' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/DeepCopy.php',
     'DeepCopy\\Exception\\CloneException' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Exception/CloneException.php',
     'DeepCopy\\Exception\\PropertyException' => $vendorDir . '/myclabs/deep-copy/src/DeepCopy/Exception/PropertyException.php',
