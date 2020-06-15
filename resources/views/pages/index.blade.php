@@ -34,8 +34,11 @@
   <div class="card-columns mx-3 mt-3">
     @foreach($products as $product)
       <a href="/{{ $cat->slug }}/{{ $product->slug }}">
-        <div id="{{ $product->id }}" class="card text-white text-center border-0">
+        <div id="{{ $product->id }}" class="card text-dark text-center border-0">
           <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
+          <div class="card-body p-2">
+            <h5 class="card-title mb-0">{{ $product->title }}</h5>
+          </div>
         </div>
       </a>
     @endforeach
