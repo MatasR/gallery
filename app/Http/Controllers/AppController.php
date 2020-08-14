@@ -11,8 +11,8 @@ class AppController extends Controller
 {
     public function home(){
 
-      $initCategory = Category::whereNull('parent_id')->inRandomOrder()->first();
-      $initCategory = Category::find(1);
+      // Random initCategory for testing purposes
+      $initCategory = Category::doesntHave('childs')->inRandomOrder()->first();
 
       $products = $initCategory->products()->simplePaginate(15);
 
