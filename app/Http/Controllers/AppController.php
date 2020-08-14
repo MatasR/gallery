@@ -14,7 +14,7 @@ class AppController extends Controller
       // Random initCategory for testing purposes
       $initCategory = Category::doesntHave('childs')->inRandomOrder()->first();
 
-      $products = $initCategory->products()->inRandomOrder()->simplePaginate(15)->withPath($initCategory->slug);
+      $products = $initCategory->products()->simplePaginate(15)->withPath($initCategory->slug);
 
       return view('pages.index', compact('initCategory', 'products'));
 
@@ -27,9 +27,7 @@ class AppController extends Controller
       if($cat->childs->where('slug', $cat->slug)->first())
         $cat = $cat->childs->where('slug', $cat->slug)->first();
 
-      // Sort in random order to gather random views for testing purposes
-      // This can only be temporarily
-      $products = $cat->products()->inRandomOrder()->simplePaginate(15);
+      $products = $cat->products()->simplePaginate(15);
 
       $pageTitle = $cat->title;
 
