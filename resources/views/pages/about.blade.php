@@ -70,7 +70,7 @@
 </div>
 
   @push('scripts')
-    <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyB3CAbjfVnPLhhj7R-CENgvEHvGoWtVkb0&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB3CAbjfVnPLhhj7R-CENgvEHvGoWtVkb0&callback=initMap" async defer></script>
     <script type="text/javascript">
     // Init google map
       function initMap(){
