@@ -37,6 +37,12 @@
       </p>
     @endif
 
+    @if (Auth::user() && Auth::user()->hasRole('admin'))
+      <!--<p class="mb-3">
+        <a href="/scrap/makeThumb/{{ $product->slug }}" class="btn btn-warning btn-lg rounded-pill" role="button" aria-pressed="true">makeThumb</a>
+      </p>-->
+    @endif
+
     <div class="row pb-3">
 
       <div class="col-12">

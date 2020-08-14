@@ -29,7 +29,8 @@ Route::post('ajax/load-more', 'AjaxController@loadMore');
 Route::get('{cat}', 'AppController@category');
 Route::get('{cat}/{product}', 'AppController@product');
 
-/*Route::get('scrap/make-slugs', 'ScrapController@makeSlugs');
+/*Route::get('scrap/makeThumb/{product}', 'ScrapController@makeThumb');
+Route::get('scrap/make-slugs', 'ScrapController@makeSlugs');
 Route::get('scrap/make-thumbs', 'ScrapController@makeThumbs');
 Route::get('scrap/convert-name', 'ScrapController@convertName');
 Route::get('scrap/products', 'ScrapController@getProducts');

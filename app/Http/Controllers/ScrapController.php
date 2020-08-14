@@ -15,6 +15,29 @@ use TCG\Voyager\Facades\Voyager;
 class ScrapController extends Controller
 {
 
+    public function makeThumb(Product $product){
+
+      $currentImage = Voyager::image(json_decode($product->image)[0]);
+
+      $filename = last(explode("/", $currentImage));
+      $fileType = last(explode(".", $filename));
+
+      $newName = str_replace('.'.$fileType, "", $filename).'-thumb-300.'.$fileType;
+
+      //Check if thumb exists
+      if(file_exists(storage_path('app/public/products/May2020/'.$newName)))
+        dd('thumb already exists');
+
+      $newImage = Image::make($currentImage);
+      $newImage->resize(300, null, function ($constraint) {
+        $constraint->aspectRatio();
+      });
+      $newImage->save(storage_path('app/public/products/May2020/'.$newName));
+
+      return back();
+
+    }
+
     public function makeSlugs(){
 
       $products = Product::get();
