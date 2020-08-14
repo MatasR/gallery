@@ -31,6 +31,12 @@
       </p>
     @endif
 
+    @if (Auth::user() && ( Auth::user()->hasRole('admin') || Auth::user()->hasRole('user') ))
+      <p class="mb-3">
+        Peržiūrų: <b>{{ $product->views }}</b>
+      </p>
+    @endif
+
     <div class="row pb-3">
 
       <div class="col-12">

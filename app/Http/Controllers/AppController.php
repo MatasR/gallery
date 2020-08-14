@@ -39,6 +39,9 @@ class AppController extends Controller
 
       $pageTitle = $product->title;
 
+      $product->views++;
+      $product->save();
+
       return view('pages.product', compact('cat', 'product', 'pageTitle'));
 
     }
