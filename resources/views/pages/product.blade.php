@@ -25,9 +25,9 @@
       </div>
     @endif
 
-    @if($product->description)
+    @if($product->short_description)
       <p class="mb-3">
-        {{ $product->description }}
+        {{ $product->short_description }}
       </p>
     @endif
 
