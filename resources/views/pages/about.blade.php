@@ -59,7 +59,7 @@
       <p class="mb-1">
         Lauksime jūsų apsilankant!
       </p>
-      <footer class="blockquote-footer">I-V 10-18 val.<br>VI 11-16 val.</footer>
+      <footer class="blockquote-footer">I-V 11-18 val.<br>VI 11-16 val.</footer>
 
     </blockquote>
 
