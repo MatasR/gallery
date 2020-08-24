@@ -10,8 +10,7 @@
   </div>
 
   <div class="row" id="authors">
-    @foreach(App\Author::with('products')->get()->sortBy('namedata-aos=fade-up ') as $author)
-
+    @foreach(App\Author::with('products')->get()->sortBy('name') as $author)
       @if($author->products->count())
       <div class="col-lg-4 col-md-6 col-12">
 
