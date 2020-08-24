@@ -27,6 +27,10 @@ class Category extends Model
   public function childs_products(){
     return $this->hasManyThrough(Product::class, Category::class, 'parent_id');
   }
+  //Return all authors of the category
+  public function authors_products(){
+    return $this->belongsToMany(Author::class, 'products');
+  }
 
   /**
    * Get the route key for the model.
