@@ -49,7 +49,7 @@
 
         <a href="/apie-mus" class="btn btn-info btn-lg rounded-pill mr-2" role="button" aria-pressed="true">Kreiptis</a>
         @if (Auth::user() && ( Auth::user()->hasRole('admin') || Auth::user()->hasRole('user') ))
-          <a href="/admin/products/{{ $product->id }}/edit" class="btn btn-secondary btn-lg rounded-pill" role="button" aria-pressed="true">Redaguoti</a>
+          <a href="/admin/products/{{ $product->id }}" class="btn btn-secondary btn-lg rounded-pill" role="button" aria-pressed="true">Redaguoti</a>
         @endif
 
       </div>
