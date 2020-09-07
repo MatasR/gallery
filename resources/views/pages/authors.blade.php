@@ -10,7 +10,7 @@
   </div>
 
   <div class="row" id="authors">
-    @foreach(App\Author::with('products')->get()->sortBy('name') as $author)
+    @foreach($authors->sortBy('surname') as $author)
       @if($author->products->count())
       <div class="col-lg-4 col-md-6 col-12">
 
@@ -19,7 +19,8 @@
           <div class="card-body p-2">
             <a href="{{ url('/autorius/'.$author->slug) }}" class="text-secondary stretched-link">
               <h4 class="card-title mb-0">
-                {{ strtoupper($author->name) }}
+                <b>{{ strtoupper($author->surname) }}</b>
+                <div class="text-capitalize">{{ mb_strtolower($author->name) }}</div>
               </h4>
             </a>
           </div>

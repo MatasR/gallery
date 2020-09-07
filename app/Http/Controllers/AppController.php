@@ -100,7 +100,22 @@ class AppController extends Controller
 
       $pageTitle = 'Autoriai';
 
-      return view('pages.authors', compact('pageTitle'));
+      // We need to order by surname while we only have a full name
+      $authors = Author::with('products')->get();
+      foreach($authors as $author){
+
+        // Explode name by spaces to get name and surname
+        $split = explode(' ', $author->name);
+        $author->surname = last($split);
+        // Remove last name from array (which should have a - sign if double surname)
+        array_pop($split);
+
+        // Put name back together (double names should be separated by spaces)
+        $author->name = implode(' ', $split);
+
+      }
+
+      return view('pages.authors', compact('pageTitle', 'authors'));
 
     }
 
