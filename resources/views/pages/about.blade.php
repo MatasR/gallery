@@ -15,7 +15,7 @@
         <h2 class="display-4 text-sm-center my-3 my-sm-5 text-secondary">Apie mus</h2>
 
         <p class="p-sm-2 p-lg-4 px-2 px-sm-3 mb-0" id="about-us-desc">
-          Vilnius. Žvėrynas. „Mažoji galerija". Jau 20 metų gyvuojančioje meno galerijoje, lankytojas suras rūpestingai parinktas profesionalių dailininkų tapybos, grafikos, keramikos, skulptūros ir autorinės juvelyrikos kolekcijas. Padedame renkantis meno kūrinius interjerams, atliekame užsakymus. <b>Viskas įmanoma – reikia tik norėti.</b>
+          {!! $AboutUs->description !!}
         </p>
 
       </div>
@@ -38,12 +38,12 @@
                 <td><a href="https://www.google.lt/maps/place/Latvi%C5%B3+g.+19a,+Vilnius" target="_blank">Latvių g. 19A-1, Vilnius</a></td>
               </tr>
               <tr>
-                <td class="text-right">Volanda:</td>
-                <td><a href="tel:+370 682 62796">+370 682 62796</a></td>
+                <td class="text-right">{!! $AboutUs->name_1 !!}:</td>
+                <td><a href="tel:{!! $AboutUs->phone_1 !!}">{!! $AboutUs->phone_1 !!}</a></td>
               </tr>
               <tr>
-                <td class="text-right">Ignė:</td>
-                <td><a href="tel:+370 698 41160">+370 698 41160</a></td>
+                <td class="text-right">{!! $AboutUs->name_2 !!}:</td>
+                <td><a href="tel:{!! $AboutUs->phone_2 !!}">{!! $AboutUs->phone_2 !!}</a></td>
               </tr>
             </tbody>
           </table>
@@ -59,7 +59,7 @@
       <p class="mb-1">
         Lauksime jūsų apsilankant!
       </p>
-      <footer class="blockquote-footer">I-V 11-18 val.<br>VI 11-16 val.</footer>
+      <footer class="blockquote-footer">{!! $AboutUs->work_hours_1 !!}<br>{!! $AboutUs->work_hours_2 !!}</footer>
 
     </blockquote>
 

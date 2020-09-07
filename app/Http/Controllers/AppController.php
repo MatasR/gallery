@@ -7,6 +7,7 @@ use App\Category;
 use App\Author;
 use App\Product;
 use App\BrokenLink;
+use App\AboutUs;
 
 class AppController extends Controller
 {
@@ -133,7 +134,9 @@ class AppController extends Controller
 
       $pageTitle = 'Apie mus';
 
-      return view('pages.about', compact('pageTitle'));
+      $AboutUs = AboutUs::first();
+
+      return view('pages.about', compact('pageTitle', 'AboutUs'));
 
     }
 
