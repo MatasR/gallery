@@ -18,7 +18,22 @@ class AppController extends Controller
 
       $products = $initCategory->products()->simplePaginate(15)->withPath($initCategory->slug);
 
-      return view('pages.index', compact('initCategory', 'products'));
+      // Distinct leaves only unique authors
+      $authors = $initCategory->authors()->distinct()->simplePaginate(15);
+      foreach($authors as $author){
+
+        // Explode name by spaces to get name and surname
+        $split = explode(' ', $author->name);
+        $author->surname = last($split);
+        // Remove last name from array (which should have a - sign if double surname)
+        array_pop($split);
+
+        // Put name back together (double names should be separated by spaces)
+        $author->name = implode(' ', $split);
+
+      }
+
+      return view('pages.index', compact('initCategory', 'products', 'authors'));
 
     }
 
@@ -35,9 +50,24 @@ class AppController extends Controller
 
         $products = $cat->products()->simplePaginate(15);
 
+        // Distinct leaves only unique authors
+        $authors = $cat->authors()->distinct()->simplePaginate(15);
+        foreach($authors as $author){
+
+          // Explode name by spaces to get name and surname
+          $split = explode(' ', $author->name);
+          $author->surname = last($split);
+          // Remove last name from array (which should have a - sign if double surname)
+          array_pop($split);
+
+          // Put name back together (double names should be separated by spaces)
+          $author->name = implode(' ', $split);
+
+        }
+
         $pageTitle = $cat->title;
 
-        return view('pages.index', compact('cat', 'products', 'pageTitle'));
+        return view('pages.index', compact('cat', 'products', 'authors','pageTitle'));
 
       }else{
         // Temp broken links function

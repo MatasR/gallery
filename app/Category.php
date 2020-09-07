@@ -31,6 +31,10 @@ class Category extends Model
   public function authors_products(){
     return $this->belongsToMany(Author::class, 'products');
   }
+  //Return all authors of the category
+  public function authors(){
+    return $this->belongsToMany(Author::class, 'products');
+  }
 
   /**
    * Get the route key for the model.

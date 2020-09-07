@@ -52,7 +52,7 @@
           @foreach($author->products as $product)
             <a href="/{{ $initCategory->slug }}/{{ $product->slug }}">
               <div class="card" data-aos="fade-up" id="{{ $product->id }}">
-                <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
+                <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}" title="{{ $product->views }}"/>
               </div>
             </a>
           @endforeach
