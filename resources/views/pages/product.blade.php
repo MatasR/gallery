@@ -7,6 +7,9 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Galerija</a></li>
         <li class="breadcrumb-item"><a href="/{{ $cat->slug }}">{{ $cat->title }}</a></li>
+        @if($product->author)
+          <li class="breadcrumb-item"><a href="/autorius/{{ $product->author->slug }}">{{ $product->author->name }}</a></li>
+        @endif
         <li class="breadcrumb-item active" aria-current="page">{{ $product->title }}</li>
       </ol>
     </nav>
