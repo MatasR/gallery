@@ -2,6 +2,15 @@
 @section('content')
 
   <div class="container" id="author">
+
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Galerija</a></li>
+        <li class="breadcrumb-item"><a href="/{{ $author->categories->unique()->first()->slug }}">{{ $author->categories->unique()->first()->title }}</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $author->name }}</li>
+      </ol>
+    </nav>
+
     <!-- Author info -->
     <div class="row">
 
