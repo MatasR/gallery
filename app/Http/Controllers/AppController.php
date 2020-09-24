@@ -51,19 +51,7 @@ class AppController extends Controller
         $products = $cat->products()->simplePaginate(15);
 
         // Distinct leaves only unique authors
-        $authors = $cat->authors()->distinct()->simplePaginate(15);
-        foreach($authors as $author){
-
-          // Explode name by spaces to get name and surname
-          $split = explode(' ', $author->name);
-          $author->surname = last($split);
-          // Remove last name from array (which should have a - sign if double surname)
-          array_pop($split);
-
-          // Put name back together (double names should be separated by spaces)
-          $author->name = implode(' ', $split);
-
-        }
+        $authors = $cat->authors()->orderBy('surname')->distinct()->simplePaginate(15);
 
         $pageTitle = $cat->title;
 

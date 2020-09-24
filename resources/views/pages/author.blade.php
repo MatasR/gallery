@@ -7,7 +7,7 @@
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Galerija</a></li>
         <li class="breadcrumb-item"><a href="/{{ $author->categories->unique()->first()->slug }}">{{ $author->categories->unique()->first()->title }}</a></li>
-        <li class="breadcrumb-item active" aria-current="page">{{ $author->name }}</li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $author->name }} {{ $author->surname }}</li>
       </ol>
     </nav>
 
@@ -21,7 +21,7 @@
       @endif
 
       <div class="col-md-9 col-sm-6 text-secondary">
-        <h4>{{ $author->name }}</h4>
+        <h4>{{ $author->name }} {{ $author->surname }}</h4>
         @if($author->description)
           <p>{{ $author->description }}</p>
         @endif

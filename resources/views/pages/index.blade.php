@@ -31,8 +31,15 @@
 
   <!-- Authors list -->
   @if($cat->authors->count())
+
+    @foreach($authors as $author)
+      <!--<a href="/autorius/{{ $author->slug }}">
+        {{ $author->name }}<br/>
+      </a>-->
+    @endforeach
+
     <div class="card-columns mx-3 mt-3">
-      @foreach($authors->sortBy('surname') as $author)
+      @foreach($authors as $author)
         <a href="/autorius/{{ $author->slug }}">
           <div class="card text-dark text-center border-0">
             @foreach($author->products->sortByDesc('views')->take(1) as $best_product)

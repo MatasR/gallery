@@ -8,7 +8,7 @@
         <li class="breadcrumb-item"><a href="/">Galerija</a></li>
         <li class="breadcrumb-item"><a href="/{{ $cat->slug }}">{{ $cat->title }}</a></li>
         @if($product->author)
-          <li class="breadcrumb-item"><a href="/autorius/{{ $product->author->slug }}">{{ $product->author->name }}</a></li>
+          <li class="breadcrumb-item"><a href="/autorius/{{ $product->author->slug }}">{{ $product->author->name }} {{ $product->author->surname }}</a></li>
         @endif
         <li class="breadcrumb-item active" aria-current="page">{{ $product->title }}</li>
       </ol>
@@ -23,7 +23,7 @@
     @if($product->author)
       <div class="row mb-3">
         <div class="col-12">
-          <a href="/autorius/{{ $product->author->slug }}" class="text-secondary">{{ $product->author->name }}</a>
+          <a href="/autorius/{{ $product->author->slug }}" class="text-secondary">{{ $product->author->name }} {{ $product->author->surname }}</a>
         </div>
       </div>
     @endif

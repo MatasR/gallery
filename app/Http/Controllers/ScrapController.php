@@ -15,48 +15,24 @@ use TCG\Voyager\Facades\Voyager;
 class ScrapController extends Controller
 {
 
-    public function makeThumb(Product $product){
+    private function makeAuthorsSurnames(){
+      $authors = Author::get();
+      foreach ($authors as $author){
 
-      $currentImage = Voyager::image(json_decode($product->image)[0]);
+        $split = explode(' ', $author->name);
+        $author->surname = last($split);
+        // Remove last name from array (which should have a - sign if double surname)
+        array_pop($split);
 
-      $filename = last(explode("/", $currentImage));
-      $fileType = last(explode(".", $filename));
+        // Put name back together (double names should be separated by spaces)
+        $author->name = implode(' ', $split);
 
-      $newName = str_replace('.'.$fileType, "", $filename).'-thumb-300.'.$fileType;
-
-      //Check if thumb exists
-      if(file_exists(storage_path('app/public/products/May2020/'.$newName)))
-        dd('thumb already exists');
-
-      $newImage = Image::make($currentImage);
-      $newImage->resize(300, null, function ($constraint) {
-        $constraint->aspectRatio();
-      });
-      $newImage->save(storage_path('app/public/products/May2020/'.$newName));
-
-      return back();
-
-    }
-
-    public function makeSlugs(){
-
-      $products = Product::get();
-      foreach ($products as $product) {
-
-        //if(!$product->slug){
-          $product->slug = $product->id.'-'.Str::slug($product->title, '-');
-          $product->save();
-
-          echo $product->id.'.'.$product->title.' -> '.$product->slug.'<br>';
-        //}
-
-        //echo $product->id.'.'.$product->title.' = '.$product->slug.'<br>';
+        $author->save();
 
       }
-
     }
 
-    public function convertName(){
+    private function convertName(){
 
       $products = Product::get();
       foreach ($products as $product){
@@ -97,7 +73,52 @@ class ScrapController extends Controller
 
     }
 
-    public function makeThumbs(){
+    private function makeThumb(Product $product){
+
+      $currentImage = Voyager::image(json_decode($product->image)[0]);
+
+      $filename = last(explode("/", $currentImage));
+      $fileType = last(explode(".", $filename));
+      $filePath = explode("/", $currentImage);
+      array_pop($filePath); // Remove last (filename)
+      array_shift($filePath);array_shift($filePath);array_shift($filePath);array_shift($filePath); // Remove 4 first (https://domain.com/folder/)
+      $filePath = implode("/", $filePath);
+
+      $newName = str_replace('.'.$fileType, "", $filename).'-thumb-300.'.$fileType;
+
+      //Check if thumb exists
+      if(file_exists(storage_path('app/public/'.$filePath.'/'.$newName)))
+        dd('thumb already exists');
+
+      $newImage = Image::make($currentImage);
+      $newImage->resize(300, null, function ($constraint) {
+        $constraint->aspectRatio();
+      });
+      $newImage->save(storage_path('app/public/'.$filePath.'/'.$newName));
+
+      return back();
+
+    }
+
+    private function makeSlugs(){
+
+      $products = Product::get();
+      foreach ($products as $product) {
+
+        if(!$product->slug){
+          $product->slug = $product->id.'-'.Str::slug($product->title, '-');
+          $product->save();
+
+          echo $product->id.'.'.$product->title.' -> '.$product->slug.'<br>';
+        }
+
+        //echo $product->id.'.'.$product->title.' = '.$product->slug.'<br>';
+
+      }
+
+    }
+
+    private function makeThumbs(){
       $products = Product::get();
       foreach ($products as $product){
 
@@ -121,26 +142,26 @@ class ScrapController extends Controller
       }
     }
 
-    public function importAuthorProducts(){
+    private function importAuthorProducts(){
 
       $catID = [
-        'grafika' => 11,
-        'tapyba' => 12,
+        //'grafika' => 11,
+        //'tapyba' => 12,
         'klasika' => 13
       ];
 
       foreach($this->getAuthors() as $cat => $authors){
 
+        echo $cat.'<br>';
         $cat = $catID[$cat];
 
         foreach($authors as $i => $author){
 
-          // Skip some authors
-          if($i <= 46)
-            continue;
+          //if($i < 11)
+            //continue;
 
-          var_dump($i);
-          $authorID = Author::where('name', $author['name'])->first()->id;
+          $authorID = Author::where('name', $author['name'])->where('surname', $author['surname'])->first()->id;
+          echo $author['name'].' '.$author['surname'].' ('.$authorID.')<br/>';
 
           $products = $this->getProducts($author['link']);
           foreach($products as $product){
@@ -155,15 +176,17 @@ class ScrapController extends Controller
 
     }
 
-    public function import(){
+    private function import(){
 
       //foreach($this->cats() as $cat){
 
-        $cat['title'] = 'Keramika';
-        $cat['link'] = 'https://smallgallery.net/keramika/';
+        $cat['title'] = 'Fotografija';
+        $cat['link'] = 'https://smallgallery.net/levas-ziriakovas/';
 
+        // Find cat model
         $insertedCat = Category::where('slug', Str::slug($cat['title']))->first();
         if(!$insertedCat){
+          dd('cant find cat: '.$cat['title']);
           // Add cat to categories table
           $insertedCat = Category::create([
             'title' => Str::ucfirst($cat['title']),
@@ -171,12 +194,13 @@ class ScrapController extends Controller
           ]);
         }
 
-        // If has childs
+        // Check if cat has childs (only for foreach loop)
         if(isset($cat['cats'])){
           foreach($cat['cats'] as $subcat){
 
             $insertedSubcat = Category::where('slug', Str::slug($subcat['title']))->first();
             if(!$insertedSubcat){
+              dd('cant find subcat: '.$subcat['title']);
               // Add subcat to categories table
               $insertedSubcat = Category::create([
                 'title' => Str::ucfirst($subcat['title']),
@@ -194,7 +218,7 @@ class ScrapController extends Controller
           }
         }else{
 
-          // No child - import products
+          // No child cat - import products
           $products = $this->getProducts($cat['link']);
           foreach($products as $product){
             $this->importProduct($product['title'], $insertedCat->id, $product['image']);
@@ -205,7 +229,7 @@ class ScrapController extends Controller
 
     }
 
-    public function importProducts(){
+    private function importProducts(){
 
       $products = $this->getProducts('https://smallgallery.net/antikvaras/');
 
@@ -264,24 +288,45 @@ class ScrapController extends Controller
     }
 
     // Import
-    private function importProduct($title, $cat, $image, $author){
+    private function importProduct($title, $cat, $image, $author = false){
 
       // Check if product already exists
-      $product = Product::where('title', $title)->first();
+      $product = Product::where('category_id', $cat)->where('title', $title)->first();
       if(!$product){
-
-        // Save image
-        $img = file_get_contents($image);
-        $imgName = '/images/April2020/'.substr($image, strrpos($image, '/') + 1);
-        Storage::put('/public'.$imgName, $img);
 
         // Insert to database products table
         $inserted = Product::create([
           'title' => $title,
           'category_id' => $cat,
-          'author_id' => $author,
-          'images' => $imgName
+          'author_id' => $author
         ]);
+
+        // Make slug
+        $slug = $inserted->id.'-'.Str::slug($title, '-');
+        $inserted->slug = $slug;
+        $inserted->save();
+
+        // Download product image
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_URL, $image);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        $img = curl_exec($curl);
+        curl_close($curl);
+
+        // Make image name
+        $imgExtension = last(explode('.', $image));
+        $imgName = '/products/'.$this->catSlug($cat).'/';
+        if($author)
+          $imgName .= $this->authorSlug($author).'/';
+        $imgName .= $slug.'.'.$imgExtension;
+
+        // Save image
+        Storage::put('/public'.$imgName, $img);
+        $inserted->image = '["'.$imgName.'"]';
+        $inserted->save();
+
+        // Create thumb for the product
+        $this->makeThumb($inserted);
 
         echo 'Product imported with ID:'.$inserted->id.'<br>';
       }else
@@ -290,7 +335,7 @@ class ScrapController extends Controller
     }
 
     // Get a list of products with their data from a sub cat or author cat link
-    public function getProducts($url = 'https://smallgallery.net/antikvaras/'){
+    private function getProducts($url = 'https://smallgallery.net/antikvaras/'){
 
       $client = new Client();
 
@@ -304,10 +349,7 @@ class ScrapController extends Controller
         else
           $title = '';
 
-        // Fix titles = remove [0-9]+|
-        //$title = preg_replace('/[0-9]+\| /', '', $title);
-
-        $image = $this->largeImage($node->filter('a img')->attr('src'));
+        $image = $node->filter('a.envira-gallery-link')->attr('href');
 
         return [
           'title' => $title,
@@ -320,15 +362,13 @@ class ScrapController extends Controller
 
     }
 
-    public function importAuthors(){
+    private function importAuthors(){
 
       foreach($this->getAuthors() as $cat){
-        $x = 0;
+
         foreach($cat as $author){
 
-          $slug = Str::slug(Str::replaceFirst('Š', 'S', $author['name']), '-');
-          //if($x==3)
-            //dd($slug);
+          $slug = Str::slug($author['name'], '-');
 
           $findAuthor = Author::where('slug', $slug)->first();
           if(!$findAuthor){
@@ -336,11 +376,10 @@ class ScrapController extends Controller
               'name' => $author['name'],
               'slug' => $slug
             ]);
-            echo $author['name'].' Added to the db<br>';
+            echo $author['name'].'('.$slug.') Added to the db<br>';
           }else
-            echo $author['name'].' Already exists<br>';
+            echo $author['name'].'('.$slug.') Already exists<br>';
 
-          $x++;
         }
       }
 
@@ -353,9 +392,9 @@ class ScrapController extends Controller
       $url = 'https://smallgallery.net/';
 
       $cats = [
-        'grafika',
-        'tapyba',
-        'klasika'
+        //'grafika',
+        //'tapyba',
+        'klasika',
       ];
 
       // Loop each cat, because each cat has its own authors
@@ -365,9 +404,21 @@ class ScrapController extends Controller
         // Loop each author
         $author = $crawler->filter('.envira-gallery-item')->each(function($node){
 
+          $name = $node->filter('.envira-album-title')->text();
+
+          // Make surname from full name
+          $split = explode(' ', $name);
+          $surname = last($split);
+          // Remove last name from array (which should have a - sign if double surname)
+          array_pop($split);
+
+          // Put name back together (double names should be separated by spaces)
+          $name = implode(' ', $split);
+
           // Return it's info
           return [
-            'name' => $node->filter('.envira-album-title')->text(),
+            'name' => $name,
+            'surname' => $surname,
             'link' => $node->filter('a')->attr('href')
           ];
 
@@ -427,31 +478,20 @@ class ScrapController extends Controller
 
     }
 
-    // Function to extract large img from wp img link
-    private function largeImage($url){
+    // Get cat slug from catID (for importProduct function)
+    private function catSlug($id){
 
-      $originImage = preg_replace('/(-[0-9]+x[0-9]+)+_c/', '', $url);
-      if(get_headers($originImage)[0] == 'HTTP/1.1 200 OK')
-
-        // Origin image exists, use that
-        return $originImage;
-
-      else{
-
-        // No origin image, extract all sizes and choose the biggest
-        preg_match_all('/([0-9]+x[0-9]+)/', $url, $sizes);
-        $results = [];
-        foreach($sizes[0] as $res){
-          $pixs = explode('x', $res);
-          $sum = $pixs[0] * $pixs[1];
-          $results[$sum] = $res;
-        }
-        krsort($results);
-        $result = reset($results);
-
-        return substr($originImage, 0, -4).'-'.$result.'.jpg';
-
-      }
+      $cat = Category::where('id', $id)->first();
+      return $cat->slug;
 
     }
+
+    // Get author slug from authorID (for importProduct function)
+    private function authorSlug($id){
+
+      $author = Author::where('id', $id)->first();
+      return $author->slug;
+
+    }
+
 }
