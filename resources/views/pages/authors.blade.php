@@ -14,7 +14,7 @@
       @if($author->products->count())
       <div class="col-lg-4 col-md-6 col-12">
 
-        <div class="card border-0" data-search="{{ $author->name }}">
+        <div class="card border-0" data-search="{{ $author->name }} {{ $author->surname }}">
           <div class="card-body p-2">
             <a href="{{ url('/autorius/'.$author->slug) }}" class="text-secondary stretched-link">
               <h4 class="card-title mb-0">
