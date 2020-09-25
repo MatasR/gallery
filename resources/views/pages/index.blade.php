@@ -7,7 +7,7 @@
 
   <!-- Main category navigation -->
   <ul class="nav mainmenu position-relative justify-content-center mx-3">
-    @foreach(App\Category::orderBy('order', 'desc')->get()->where('parent_id', '') as $category)
+    @foreach(App\Category::orderBy('order')->get()->where('parent_id', '') as $category)
       @if($category->childs->count())
       <li class="nav-item dropdown {{ ($category->slug == $cat->slug || $category->childs->where('slug', $cat->slug)->count() ? 'active' : '') }}">
           <a class="nav-link dropdown-toggle text-secondary"  data-toggle="dropdown" href="#">
