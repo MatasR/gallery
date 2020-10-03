@@ -19,19 +19,7 @@ class AppController extends Controller
       $products = $initCategory->products()->simplePaginate(15)->withPath($initCategory->slug);
 
       // Distinct leaves only unique authors
-      $authors = $initCategory->authors()->distinct()->simplePaginate(15);
-      foreach($authors as $author){
-
-        // Explode name by spaces to get name and surname
-        $split = explode(' ', $author->name);
-        $author->surname = last($split);
-        // Remove last name from array (which should have a - sign if double surname)
-        array_pop($split);
-
-        // Put name back together (double names should be separated by spaces)
-        $author->name = implode(' ', $split);
-
-      }
+      $authors = $initCategory->authors()->orderBy('surname')->distinct()->simplePaginate(15);
 
       return view('pages.index', compact('initCategory', 'products', 'authors'));
 
