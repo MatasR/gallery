@@ -15,7 +15,7 @@ use TCG\Voyager\Facades\Voyager;
 class ScrapController extends Controller
 {
 
-    public function makeAuthorsFullname(){
+    public function makeAuthorsFullnames(){
 
         $authors = Author::get();
         foreach ($authors as $author){
