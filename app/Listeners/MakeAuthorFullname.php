@@ -15,7 +15,7 @@ class MakeAuthorFullname
      */
     public function handle($event)
     {
-        if($event->dataType->name == 'authors'){
+        if($event->dataType->name == 'authors' && $event->changeType != 'Deleted'){
 
             $event->data->fullname = $event->data->name.' '.$event->data->surname;
             $event->data->save();
