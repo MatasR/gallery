@@ -19,6 +19,8 @@ Route::group(['prefix' => 'admin'], function () {
     Voyager::routes();
 });
 
+Route::get('scrap/make-authors-fullnames', 'ScrapController@makeAuthorsFullnames');
+
 Route::get('autoriai', 'AppController@authors');
 Route::get('autorius/{author}', 'AppController@author');
 Route::get('apie-mus', 'AppController@about');
