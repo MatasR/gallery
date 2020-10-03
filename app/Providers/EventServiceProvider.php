@@ -15,8 +15,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        Registered::class => [
-            SendEmailVerificationNotification::class,
+        \TCG\Voyager\Events\BreadDataChanged::class => [
+            \App\Listeners\MakeAuthorFullname::class,
         ],
     ];
 
