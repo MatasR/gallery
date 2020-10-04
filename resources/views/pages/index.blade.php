@@ -31,13 +31,6 @@
 
   <!-- Authors list -->
   @if($cat->authors->count())
-
-    @foreach($authors as $author)
-      <!--<a href="/autorius/{{ $author->slug }}">
-        {{ $author->name }}<br/>
-      </a>-->
-    @endforeach
-
     <div class="card-columns mx-3 mt-3">
       @foreach($authors as $author)
         <a href="/autorius/{{ $author->slug }}">
@@ -74,13 +67,5 @@
   @endif
 
 </div>
-
-  @push('scripts')
-    <script type="text/javascript">
-
-
-
-    </script>
-  @endpush
 
 @stop
