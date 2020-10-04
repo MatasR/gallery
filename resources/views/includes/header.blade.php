@@ -1,8 +1,8 @@
 <!-- Navbar -->
 <div class="container">
-  <nav class="navbar navbar-light justify-content-start px-1">
+  <nav class="navbar navbar-light justify-content-start justify-content-sm-center justify-content-md-start px-1">
     <!-- Toggler/collapsibe Button -->
-    <button class="navbar-toggler collapsed border-0 mr-3" type="button" data-aos="fade-right" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <button class="navbar-toggler collapsed border-0 mr-2" type="button" data-aos="fade-right" data-toggle="collapse" data-target="#collapsibleNavbar">
       <span class="bars"></span>
     </button>
 
@@ -30,7 +30,7 @@
     </div>
 
     <!-- Search bar -->
-    <form class="form-inline ml-auto" id="main-search">
+    <form class="form-inline ml-md-auto" id="main-search">
       <div class="input-group">
         <input id="wrapped" class="form-control" type="search" placeholder="Paieška" aria-label="Search">
         <div class="input-group-addon">
@@ -48,17 +48,7 @@
 @push('scripts')
   <script type="text/javascript">
     // Main search
-    $(document).ready(function(){
-      var searchType = $('#main-search select').val();
-      $('#main-search input').autocomplete({
-        serviceUrl: '/ajax/main-search',
-        params: searchType,
-        onSelect: function(suggestion){
-          console.log(suggestion)
-        }
-      });
-    });
-    /*$(window).on('load', function () {
+    $(window).on('load', function () {
       $('#main-search input').on('keyup', function(){
 
         var value = $(this).val().toLowerCase();
@@ -77,6 +67,6 @@
         });
 
       });
-    });*/
+    });
   </script>
 @endpush

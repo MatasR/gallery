@@ -12485,6 +12485,26 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   padding-left: 48px;
 }
 
+#main-search {
+  /*@include media-breakpoint-up(865px) {
+    @include media-breakpoint-down(992px) {
+      width: 45%;
+    }
+  }*/
+}
+
+@media (max-width: 575.98px) {
+  #main-search {
+    width: 100%;
+  }
+}
+
+@media (min-width: 865px) and (max-width: 992px) {
+  #main-search {
+    width: 45%;
+  }
+}
+
 #wrapped + .input-group-addon {
   margin: 0;
   padding: 0;

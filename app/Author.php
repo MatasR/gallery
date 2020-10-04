@@ -7,9 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Author extends Model
 {
-
-  var $fillable = ['name', 'slug'];
-
     public function products(){
       return $this->hasMany(Product::class);
     }

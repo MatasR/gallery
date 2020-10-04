@@ -65,15 +65,28 @@ $enable-responsive-font-sizes: true;
 }
 
 // Main Search wrap
+#main-search {
+  @include media-breakpoint-down(xs) {
+    width: 100%;
+  }
+  @media (min-width: 865px) and (max-width: 992px) {
+    width: 45%;
+  }
+  /*@include media-breakpoint-up(865px) {
+    @include media-breakpoint-down(992px) {
+      width: 45%;
+    }
+  }*/
+}
 #wrapped+.input-group-addon {
-    margin: 0;
-    padding: 0;
-    min-width: 8rem;
-    border: none;
+  margin: 0;
+  padding: 0;
+  min-width: 8rem;
+  border: none;
 }
 #wrapped+.input-group-addon>.form-control {
-    border-radius: 0 .4rem .4rem 0;
-    border-left: none;
+  border-radius: 0 .4rem .4rem 0;
+  border-left: none;
 }
 
 html {
