@@ -12485,14 +12485,6 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   padding-left: 48px;
 }
 
-#main-search {
-  /*@include media-breakpoint-up(865px) {
-    @include media-breakpoint-down(992px) {
-      width: 45%;
-    }
-  }*/
-}
-
 @media (max-width: 575.98px) {
   #main-search {
     width: 100%;
@@ -12505,14 +12497,14 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   }
 }
 
-#wrapped + .input-group-addon {
+#main-search .input-group-addon {
   margin: 0;
   padding: 0;
   min-width: 8rem;
   border: none;
 }
 
-#wrapped + .input-group-addon > .form-control {
+#main-search .input-group-addon > .form-control {
   border-radius: 0 0.4rem 0.4rem 0;
   border-left: none;
 }

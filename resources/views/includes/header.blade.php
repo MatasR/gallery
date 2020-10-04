@@ -49,7 +49,39 @@
   <script type="text/javascript">
     // Main search
     $(window).on('load', function () {
-      $('#main-search input').on('keyup', function(){
+
+      $('#main-search input').autoComplete({
+        resolver: 'custom',
+        formatResult: function(item){
+          return item;
+        },
+        events: {
+          search: function(query, callback, origJQElement){
+            var type = origJQElement.parent().find('select').val();
+            $.ajax({
+              type: 'POST',
+              url: '/ajax/main-search',
+              data: {
+                '_token': $('meta[name="_token"]').attr('content'),
+                'searchInput': query,
+                'searchType': type
+              },
+              success: function(data){
+                callback(data);
+              }
+            });
+          },
+          searchPost: function(resultsFromServer) {
+            return resultsFromServer;
+          }
+        }
+      });
+
+      // Redirect on suggestion click
+      $('#main-search').on('autocomplete.select', function(event, item){
+        window.location.href = item.url;
+      });
+      /*$('#main-search input').on('keyup', function(){
 
         var value = $(this).val().toLowerCase();
         var type = $(this).parent().find('select').val();
@@ -66,7 +98,7 @@
           }
         });
 
-      });
+      });*/
     });
   </script>
 @endpush

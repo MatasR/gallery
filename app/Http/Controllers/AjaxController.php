@@ -18,16 +18,29 @@ class AjaxController extends Controller
         return false;
 
       // 1. Search in authors
-      if($request->searchType == 'authors')
-        return Author::with('products')->has('products')->where('fullname', 'LIKE', '%'.$request->searchInput.'%')->pluck('fullname', 'slug'),;
+      if($request->searchType == 'authors'){
+        $result =  Author::with('products')->has('products')->where('fullname', 'LIKE', '%'.$request->searchInput.'%')->pluck('fullname', 'slug');
+        $url = '/autorius/';
+      }
 
       // 2. Search in categories
-      if($request->searchType == 'categories')
-        return = Category::with('products')->has('products')->where('title', 'LIKE', '%'.$request->searchInput.'%')->pluck('title', 'slug');
+      if($request->searchType == 'categories'){
+        $result = Category::with('products')->has('products')->where('title', 'LIKE', '%'.$request->searchInput.'%')->pluck('title', 'slug');
+        $url = '/';
+      }
 
       // 3. Search in products
       if($request->searchType == 'products')
-        return = Product::where('title', 'LIKE', '%'.$request->searchInput.'%')->pluck('title', 'slug');
+        $result = Product::where('title', 'LIKE', '%'.$request->searchInput.'%')->pluck('title', 'slug');
+
+
+      foreach($result as $slug => $fullname){
+          $res[] = [
+            'text' => $fullname,
+            'url' => $url.$slug
+          ];
+      }
+      return $res;
 
     }
 
