@@ -35,9 +35,9 @@
         <input id="wrapped" class="form-control" type="search" placeholder="Paieška" aria-label="Search" autocomplete="off">
         <div class="input-group-addon">
           <select class="form-control">
-            <option value="authors">Authors</option>
-            <option value="products">Products</option>
-            <option value="categories">Categories</option>
+            <option value="authors">Autoriai</option>
+            <option value="products">Darbai</option>
+            <option value="categories">Kategorijos</option>
           </select>
         </div>
       </div>
