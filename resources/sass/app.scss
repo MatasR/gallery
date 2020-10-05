@@ -77,7 +77,6 @@ $enable-responsive-font-sizes: true;
       width: 100% !important;
       .dropdown-item {
         padding: 0.25rem 0.75rem;
-        font-size: 0.9rem;
         cursor: pointer;
         &:hover {
           color: #fff;
@@ -88,7 +87,6 @@ $enable-responsive-font-sizes: true;
   .input-group-addon {
     margin: 0;
     padding: 0;
-    //min-width: 8rem;
     border: none;
   }
   .input-group-addon>.form-control {
