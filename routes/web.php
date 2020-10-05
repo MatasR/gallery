@@ -23,7 +23,6 @@ Route::get('autoriai', 'AppController@authors');
 Route::get('autorius/{author}', 'AppController@author');
 Route::get('apie-mus', 'AppController@about');
 
-Route::get('ajax/main-search', 'AjaxController@mainSearch');
 Route::post('ajax/main-search', 'AjaxController@mainSearch');
 
 Route::get('{cat}', 'AppController@category');

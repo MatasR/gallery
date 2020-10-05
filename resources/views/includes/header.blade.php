@@ -32,7 +32,7 @@
     <!-- Search bar -->
     <form class="form-inline ml-md-auto" id="main-search">
       <div class="input-group">
-        <input id="wrapped" class="form-control" type="search" placeholder="Paieška" aria-label="Search">
+        <input id="wrapped" class="form-control" type="search" placeholder="Paieška" aria-label="Search" autocomplete="off">
         <div class="input-group-addon">
           <select class="form-control">
             <option value="authors">Authors</option>
@@ -71,7 +71,10 @@
               }
             });
           },
-          searchPost: function(resultsFromServer) {
+          searchPost: function(resultsFromServer, el) {
+            /*console.log(el.parent().width());
+            el.parent().find('.bootstrap-autocomplete').width(el.parent().width());
+            console.log(el.parent().find('.bootstrap-autocomplete').width());*/
             return resultsFromServer;
           }
         }
@@ -81,24 +84,7 @@
       $('#main-search').on('autocomplete.select', function(event, item){
         window.location.href = item.url;
       });
-      /*$('#main-search input').on('keyup', function(){
 
-        var value = $(this).val().toLowerCase();
-        var type = $(this).parent().find('select').val();
-        $.ajax({
-          type: 'POST',
-          url: '/ajax/main-search',
-          data: {
-            '_token': $('meta[name="_token"]').attr('content'),
-            'searchInput': value,
-            'searchType': type
-          },
-          success: function(data) {
-            console.log(data);
-          }
-        });
-
-      });*/
     });
   </script>
 @endpush

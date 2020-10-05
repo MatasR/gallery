@@ -20,7 +20,7 @@
       </div>
       @endif
 
-      <div class="col-md-9 col-sm-6 text-secondary">
+      <div class="col text-secondary">
         <h4>{{ $author->name }} {{ $author->surname }}</h4>
         @if($author->description)
           <p>{{ $author->description }}</p>

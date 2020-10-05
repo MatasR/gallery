@@ -30,17 +30,22 @@ class AjaxController extends Controller
       }
 
       // 3. Search in products
-      if($request->searchType == 'products')
-        $result = Product::where('title', 'LIKE', '%'.$request->searchInput.'%')->pluck('title', 'slug');
-
-
-      foreach($result as $slug => $fullname){
-          $res[] = [
-            'text' => $fullname,
-            'url' => $url.$slug
-          ];
+      if($request->searchType == 'products'){
+        $products = Product::where('title', 'LIKE', '%'.$request->searchInput.'%')->get();
+        foreach($products as $product)
+          $result[$product->category->slug.'/'.$product->slug] = $product->title;
+        $url = '/';
       }
-      return $res;
+
+      // Format results
+      $res = array();
+      foreach($result as $slug => $fullname){
+        $res[] = [
+          'text' => $fullname,
+          'url' => $url.$slug
+        ];
+      }
+      return array_slice($res, 0, 10);
 
     }
 

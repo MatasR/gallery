@@ -12497,10 +12497,23 @@ body[data-aos-easing=ease-in-out-quart] [data-aos],
   }
 }
 
+#main-search .input-group .bootstrap-autocomplete {
+  width: 100% !important;
+}
+
+#main-search .input-group .bootstrap-autocomplete .dropdown-item {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+#main-search .input-group .bootstrap-autocomplete .dropdown-item:hover {
+  color: #fff;
+}
+
 #main-search .input-group-addon {
   margin: 0;
   padding: 0;
-  min-width: 8rem;
   border: none;
 }
 
