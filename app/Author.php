@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Author extends Model
 {
     public function products(){
-      return $this->hasMany(Product::class);
+      return $this->hasMany(Product::class)->orderBy('title');
     }
 
     public function categories(){
