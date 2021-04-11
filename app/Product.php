@@ -20,6 +20,11 @@ class Product extends Model
     return $this->belongsTo(Author::class);
   }
 
+  public function getTitleNumberAttribute(){
+    preg_match('/[0-9]+/', $this->title, $numbers);
+    return $numbers[0];
+  }
+
   /**
    * Get the route key for the model.
    *
