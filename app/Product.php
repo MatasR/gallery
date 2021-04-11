@@ -22,7 +22,8 @@ class Product extends Model
 
   public function getTitleNumberAttribute(){
     preg_match('/[0-9]+/', $this->title, $numbers);
-    return $numbers[0];
+    if($numbers)
+      return $numbers[0];
   }
 
   /**
