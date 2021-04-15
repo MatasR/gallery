@@ -36,7 +36,8 @@ class AppController extends Controller
         if($cat->childs->where('slug', $cat->slug)->first())
           $cat = $cat->childs->where('slug', $cat->slug)->first();
 
-        $products = $cat->products()->simplePaginate(15);
+        // Order products by its title number
+        $products = $cat->products()->orderByRaw('LENGTH(title)','ASC')->orderBy('title', 'ASC')->simplePaginate(15);
 
         // Distinct leaves only unique authors
         $authors = $cat->authors()->orderBy('surname')->distinct()->simplePaginate(15);
