@@ -1,10 +1,10 @@
-#/node_modules
+node_moduless
 /public/hot
 /public/storage
 /public/js
 /public/css
 /storage/*.key
-/vendor
+/vendorr
 .env
 .env.backup
 .phpunit.result.cache
