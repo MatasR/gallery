@@ -16,7 +16,11 @@
 
     <div class="row justify-content-center">
       <div class="col-auto">
-        <img class="img-fluid mb-3" src="{{ Voyager::image(json_decode($product->image)[0]) }}" alt="">
+        @if(json_decode($product->image))
+          <img class="img-fluid mb-3" src="{{ Voyager::image(json_decode($product->image)[0]) }}" alt="">
+        @else
+          <img class="img-fluid mb-3" src="https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png"/>
+        @endif
       </div>
     </div>
 

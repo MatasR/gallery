@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+
+  app:
+    build:
+      args:
+        user: matas
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: gallery
+    container_name: gallery-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - gallery
+
+  mysql:
+    image: mysql:8.0
+    container_name: gallery-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_USER: ${DB_USERNAME}
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - gallery
+
+  nginx:
+    image: nginx:alpine
+    container_name: gallery-nginx
+    restart: unless-stopped
+    ports:
+      - 8000:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d
+    networks:
+      - gallery
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    container_name: gallery-phpmyadmin
+    depends_on:
+      - mysql
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - gallery
+
+networks:
+  gallery:
+    driver: bridge

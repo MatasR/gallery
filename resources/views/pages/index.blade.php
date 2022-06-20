@@ -36,7 +36,11 @@
         <a href="/autorius/{{ $author->slug }}">
           <div class="card text-dark text-center border-0">
             @foreach($author->products->sortByDesc('views')->take(1) as $best_product)
-              <img class="card-img" src="{{ Voyager::image($best_product->getThumbnail(json_decode($best_product->image)[0], 'thumb-300')) }}"/>
+              @if(json_decode($best_product->image))
+                <img class="card-img" src="{{ Voyager::image($best_product->getThumbnail(json_decode($best_product->image)[0], 'thumb-300')) }}"/>
+              @else
+                <img class="card-img" src="https://user-images.githubusercontent.com/101482/29592647-40da86ca-875a-11e7-8bc3-941700b0a323.png"/>
+              @endif
             @endforeach
             <div class="card-body p-2">
               <h5 class="card-title mb-0">
