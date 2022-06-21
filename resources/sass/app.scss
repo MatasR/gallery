@@ -1,0 +1,236 @@
+//Make changes to bootstrap
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,400,600');
+$font-family-base: 'Nunito';
+$enable-responsive-font-sizes: true;
+
+//Import bootstrap to save changes
+@import "node_modules/bootstrap/scss/bootstrap";
+
+//Import AOS js
+@import "node_modules/aos/src/sass/aos";
+
+//Import drift theme
+@import "node_modules/drift-zoom/dist/drift-basic";
+
+//Responsive menu
+.navbar {
+  .navbar-toggler {
+    position: relative;
+    width: 29px;
+    height: 29px;
+    span.bars, span.bars:before, span.bars:after {
+      border-radius: 1px;
+      height: 2px;
+      width: 25px;
+      background: #aaa;
+      position: absolute;
+      left: 1px;
+      display: block;
+      content: "";
+      transition: all 300ms ease-in-out;
+    }
+    span.bars:before {
+      top: -8px;
+      left: 0;
+    }
+    span.bars:after {
+      top: 8px;
+      left: 0;
+    }
+    &:focus {
+      outline: none;
+    }
+    &:not(.collapsed) {
+      span.bars {
+        background-color: transparent;
+        transform: rotate(90deg);
+        &:before {
+          top: 0;
+          transform: rotate(45deg);
+        }
+        &:after {
+          top: 0;
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+  .navbar-collapse {
+    .nav-link {
+      font-size: 18px;
+      text-transform: uppercase;
+      padding-left: 48px;
+    }
+  }
+}
+
+// Main Search wrap
+#main-search {
+  @include media-breakpoint-down(xs) {
+    width: 100%;
+  }
+  @media (min-width: 865px) and (max-width: 992px) {
+    width: 45%;
+  }
+  .input-group {
+    .bootstrap-autocomplete {
+      width: 100% !important;
+      .dropdown-item {
+        padding: 0.25rem 0.75rem;
+        cursor: pointer;
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+  .input-group-addon {
+    margin: 0;
+    padding: 0;
+    border: none;
+  }
+  .input-group-addon>.form-control {
+    border-radius: 0 .4rem .4rem 0;
+    border-left: none;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  margin-bottom: 54px; /* Margin bottom by footer height */
+  .nav {
+    .nav-item {
+      &.active {
+        border-bottom: 1px solid #ccc;
+        .nav-link {
+          color: #000 !important;
+        }
+      }
+      .nav-link {
+        font-size: 13px;
+        font-weight: 600;
+        letter-spacing: .09rem;
+        text-transform: uppercase;
+        padding: 0.5rem 0.9rem;
+      }
+    }
+  }
+}
+
+.breadcrumb {
+  background-color: #f9f9f9;
+}
+
+// Global Card columns style
+.card-columns {
+  column-gap: 0.75rem;
+  @include media-breakpoint-up(lg) {
+    column-count: 4;
+  }
+  @include media-breakpoint-down(sm) {
+    column-count: 2;
+  }
+  .card {
+    cursor: pointer;
+    //border-radius: 1.25rem;
+    overflow: hidden;
+    display: inline-flex;
+    .card-body {
+      .card-title {
+        font-size: 1rem;
+      }
+    }
+    .card-img-overlay {
+      .card-title {
+        background: rgba(0, 0, 0, 0.3);
+        bottom: -44px;
+        transition: all 300ms ease-in-out;
+      }
+    }
+  }
+}
+
+// Authors
+#authors {
+  // Col
+  .card {
+    .card-body {
+      a {
+        color: inherit;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      .card-title {
+        font-size: 1.25rem;
+      }
+    }
+  }
+  // Columns
+  .card-columns {
+    .card {
+      .card-img-top {
+        object-fit: cover;
+      }
+      .card-body {
+        .card-title {
+          font-size: 1.25rem;
+        }
+      }
+    }
+  }
+}
+
+// Product
+#product {
+  .img-fluid {
+    @include media-breakpoint-up(sm) {
+      max-height: 636px;
+    }
+    @include media-breakpoint-down(sm) {
+      max-height: 379px;
+    }
+  }
+}
+
+// About-us
+#about-us {
+  .paralax {
+    height: 200px;
+    width: 100%;
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5)), url('/img/about.jpg');
+    background-size: cover;
+    @include media-breakpoint-up(md) {
+      height: 400px;
+      background-attachment: fixed;
+      background-position-x: center;
+      background-position-y: -120px;
+    }
+  }
+  #about-us-desc {
+
+  }
+  .map-container {
+    height: 250px;
+    @include media-breakpoint-up(md) {
+      height: 400px;
+    }
+  }
+  .blockquote {
+    .blockquote-footer {
+      &:before {
+        content: none;
+      }
+    }
+  }
+}
+
+footer.sticky {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+}
