@@ -6,7 +6,9 @@
 
   </head>
   <body>
-
+    <div class="text-center bg-info">
+      Liepos 23d. nedirbsime. Gražaus savaitgalio! :)
+    </div>
     <header class="row">
 
       @include('includes.header')
