@@ -1,4 +1,4 @@
-<div class="text-center bg-info">
+<div class="text-center bg-info text-white py-2">
   Liepos 23d. nedirbsime. Gražaus savaitgalio! :)
 </div>
 
