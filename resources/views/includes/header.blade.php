@@ -1,6 +1,8 @@
+@if(date('d') == 23)
 <div class="text-center bg-info text-white py-2">
   Liepos 23d. nedirbsime. Gražaus savaitgalio! :)
 </div>
+@endif
 
 <!-- Navbar -->
 <div class="container">
