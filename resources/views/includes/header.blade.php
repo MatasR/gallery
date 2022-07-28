@@ -1,3 +1,9 @@
+@if(date('d') == 28)
+<div class="text-center bg-info text-white py-2">
+  Liepos 28d. nedirbsime. :)
+</div>
+@endif
+
 <!-- Navbar -->
 <div class="container">
   <nav class="navbar navbar-light justify-content-start justify-content-sm-center justify-content-md-start px-1">
