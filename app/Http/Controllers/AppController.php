@@ -153,6 +153,7 @@ class AppController extends Controller
           // 1.2.2. Redirect to new link and increase redirect count
         // 1.3. Increase view to this link
       // 2. Create broken links item with old link and 1 view
+        // 2.1. Try to guess the category of new link, so all deleted products would redirect to that category page
       // 3. Redirect to 404
 
       $brokenLink = BrokenLink::where('old_link', $url)->first();
@@ -168,8 +169,22 @@ class AppController extends Controller
 
           return redirect($brokenLink->new_link, 301)->send();
 
-        }else
+        }else{
+          
+          // Auto assign parent cat as new link
+          $urlParams = explode('/', $url);
+          if(count($urlParams) == 3) {
+
+            $brokenLink->new_link = '/'.$urlParams[1];
+            $brokenLink->redirects++;
+            $brokenLink->save();
+
+            return redirect($brokenLink->new_link, 301)->send();
+
+          }
+
           abort(404);
+        }
 
       }else{
 
