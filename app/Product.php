@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use TCG\Voyager\Traits\Resizable;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -11,6 +12,21 @@ class Product extends Model
   use Resizable;
 
   var $fillable = ['title', 'short_desc', 'category_id', 'author_id', 'image'];
+
+  protected static function booted()
+  {
+    static::created(function ($product) {
+      $product->slug = Str::of($product->id . ' ' . $product->title)->slug('-');
+
+      $product->save();
+    });
+
+    static::updated(function ($product) {
+      $product->slug = Str::of($product->id . ' ' . $product->title)->slug('-');
+
+      $product->save();
+    });
+  }
 
   public function category(){
     return $this->belongsTo(Category::class);
