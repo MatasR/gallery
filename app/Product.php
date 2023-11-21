@@ -21,10 +21,8 @@ class Product extends Model
       $product->save();
     });
 
-    static::updated(function ($product) {
+    static::updating(function ($product) {
       $product->slug = Str::of($product->id . ' ' . $product->title)->slug('-');
-
-      $product->save();
     });
   }
 
