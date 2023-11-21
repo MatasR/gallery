@@ -60,7 +60,6 @@
         <div class="card-columns mx-3 mt-3">
           @foreach($author->products->sortBy(function($product){return $product->title_number;}) as $product)
             <a href="/{{ $initCategory->slug }}/{{ $product->slug }}">
-              <!-- <div class="card text-dark text-center border-0" data-aos="fade-up" id="{{ $product->id }}"> -->
               <div class="card text-dark text-center border-0" id="{{ $product->id }}">
                 @if(json_decode($product->image))
                   <img class="card-img" src="{{ Voyager::image($product->getThumbnail(json_decode($product->image)[0], 'thumb-300')) }}"/>
